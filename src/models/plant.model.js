@@ -50,7 +50,7 @@ plantSchema.plugin(toJSON);
 plantSchema.plugin(paginate);
 
 /**
- * @typedef User
+ * @typedef Plant
  */
 const Plant = mongoose.model('Plant', plantSchema);
 

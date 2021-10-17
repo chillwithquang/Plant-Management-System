@@ -58,7 +58,7 @@ speciesSchema.plugin(toJSON);
 speciesSchema.plugin(paginate);
 
 /**
- * @typedef User
+ * @typedef Species
  */
 const Species = mongoose.model('Species', speciesSchema);
 

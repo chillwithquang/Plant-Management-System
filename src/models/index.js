@@ -1,2 +1,10 @@
 module.exports.Token = require('./token.model');
 module.exports.User = require('./user.model');
+module.exports.Classis = require('./classis.model');
+module.exports.Divisio = require('./divisio.model');
+module.exports.Familia = require('./familia.model');
+module.exports.Genus = require('./genus.model');
+module.exports.Image = require('./image.model');
+module.exports.Ordo = require('./ordo.model');
+module.exports.Plant = require('./plant.model');
+module.exports.Species = require('./species.model');

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
-const genusSchema = mongoose.Schema(
+const ordoSchema = mongoose.Schema(
   {
     Ten_KH: {
       type: String,
@@ -15,9 +15,9 @@ const genusSchema = mongoose.Schema(
     Mo_Ta: {
       type: String,
     },
-    Ho: {
+    Lop: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Familia',
+      ref: 'Classis',
       required: true,
     },
   },
@@ -27,12 +27,12 @@ const genusSchema = mongoose.Schema(
 );
 
 // add plugin that converts mongoose to json
-genusSchema.plugin(toJSON);
-genusSchema.plugin(paginate);
+ordoSchema.plugin(toJSON);
+ordoSchema.plugin(paginate);
 
 /**
- * @typedef Genus
+ * @typedef Ordo
  */
-const Genus = mongoose.model('Genus', genusSchema);
+const Ordo = mongoose.model('Ordo', ordoSchema);
 
-module.exports = Genus;
+module.exports = Ordo;

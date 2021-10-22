@@ -1,2 +1,10 @@
 module.exports.authValidation = require('./auth.validation');
 module.exports.userValidation = require('./user.validation');
+module.exports.classisValidation = require('./classis.validation');
+module.exports.divisioValidation = require('./divisio.validation');
+module.exports.familiaValidation = require('./familia.validation');
+module.exports.genusValidation = require('./genus.validation');
+module.exports.imageValidation = require('./image.validation');
+module.exports.ordoValidation = require('./ordo.validation');
+module.exports.plantValidation = require('./plant.validation');
+module.exports.speciesValidation = require('./species.validation');

@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
-const ImageSchema = mongoose.Schema(
+const imageSchema = mongoose.Schema(
   {
     URL: {
       type: String,
+      required: true,
+      unique: true,
     },
     Loai: {
       type: mongoose.SchemaTypes.ObjectId,
@@ -18,12 +20,12 @@ const ImageSchema = mongoose.Schema(
 );
 
 // add plugin that converts mongoose to json
-ImageSchema.plugin(toJSON);
-ImageSchema.plugin(paginate);
+imageSchema.plugin(toJSON);
+imageSchema.plugin(paginate);
 
 /**
  * @typedef Image
  */
-const Image = mongoose.model('Image', ImageSchema);
+const Image = mongoose.model('Image', imageSchema);
 
 module.exports = Image;

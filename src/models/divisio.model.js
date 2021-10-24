@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
-const DivisioSchema = mongoose.Schema(
+const divisioSchema = mongoose.Schema(
   {
     Ten_KH: {
       type: String,
+      required: true,
+      unique: true,
     },
     Ten_Latin: {
       type: String,
@@ -22,12 +24,12 @@ const DivisioSchema = mongoose.Schema(
 );
 
 // add plugin that converts mongoose to json
-DivisioSchema.plugin(toJSON);
-DivisioSchema.plugin(paginate);
+divisioSchema.plugin(toJSON);
+divisioSchema.plugin(paginate);
 
 /**
  * @typedef Divisio
  */
-const Divisio = mongoose.model('Divisio', DivisioSchema);
+const Divisio = mongoose.model('Divisio', divisioSchema);
 
 module.exports = Divisio;

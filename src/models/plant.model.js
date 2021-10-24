@@ -3,6 +3,11 @@ const { toJSON, paginate } = require('./plugins');
 
 const plantSchema = mongoose.Schema(
   {
+    Ten_KH: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     Noi_Lay: {
       type: String,
     },

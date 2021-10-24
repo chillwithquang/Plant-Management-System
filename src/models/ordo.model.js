@@ -5,6 +5,8 @@ const ordoSchema = mongoose.Schema(
   {
     Ten_KH: {
       type: String,
+      required: true,
+      unique: true,
     },
     Ten_Latin: {
       type: String,

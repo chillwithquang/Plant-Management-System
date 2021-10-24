@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
-const ClassisSchema = mongoose.Schema(
+const classisSchema = mongoose.Schema(
   {
     Ten_KH: {
       type: String,
+      required: true,
+      unique: true,
     },
     Ten_Latin: {
       type: String,
@@ -27,12 +29,12 @@ const ClassisSchema = mongoose.Schema(
 );
 
 // add plugin that converts mongoose to json
-ClassisSchema.plugin(toJSON);
-ClassisSchema.plugin(paginate);
+classisSchema.plugin(toJSON);
+classisSchema.plugin(paginate);
 
 /**
  * @typedef Classis
  */
-const Classis = mongoose.model('Classis', ClassisSchema);
+const Classis = mongoose.model('Classis', classisSchema);
 
 module.exports = Classis;

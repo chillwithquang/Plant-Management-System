@@ -3,13 +3,10 @@ const { toJSON, paginate } = require('./plugins');
 
 const speciesSchema = mongoose.Schema(
   {
-    ID_Loai: {
-      type: Number,
-      require: true,
-      unique: true,
-    },
     Ten_KH: {
       type: String,
+      required: true,
+      unique: true,
     },
     Ten_TV_Khac: {
       type: String,

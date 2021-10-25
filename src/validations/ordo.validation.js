@@ -9,5 +9,5 @@ const createOrdo = {
 };
 
 module.exports = {
-  createGenus: createOrdo,
+  createOrdo,
 };

@@ -17,5 +17,5 @@ const createSpecies = {
 };
 
 module.exports = {
-  createGenus: createSpecies,
+  createSpecies,
 };

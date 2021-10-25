@@ -8,6 +8,16 @@ const createDivisio = {
   }),
 };
 
+const getDivisios = {
+  query: Joi.object().keys({
+    name: Joi.string(),
+    sortBy: Joi.string(),
+    limit: Joi.number().integer(),
+    page: Joi.number().integer(),
+  }),
+};
+
 module.exports = {
-  createGenus: createDivisio,
+  createDivisio,
+  getDivisios,
 };

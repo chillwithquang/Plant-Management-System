@@ -9,5 +9,5 @@ const createFamilia = {
 };
 
 module.exports = {
-  createGenus: createFamilia,
+  createFamilia,
 };

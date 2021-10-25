@@ -9,5 +9,5 @@ const createClassis = {
 };
 
 module.exports = {
-  createGenus: createClassis,
+  createClassis,
 };

@@ -1,7 +1,8 @@
 const Joi = require('joi');
+const { objectId } = require('./custom.validation');
 
 const createDivisio = {
-  body: Joi.object().key({
+  body: Joi.object().keys({
     Ten_KH: Joi.string().required(),
     Ten_Latin: Joi.string(),
     Mo_Ta: Joi.string(),
@@ -17,7 +18,35 @@ const getDivisios = {
   }),
 };
 
+const getDivisio = {
+  params: Joi.object().keys({
+    divisioId: Joi.string().custom(objectId),
+  }),
+};
+
+const updateDivisioId = {
+  params: Joi.object().keys({
+    divisioId: Joi.required().custom(objectId),
+  }),
+  body: Joi.object()
+    .keys({
+      Ten_KH: Joi.string(),
+      Ten_Latin: Joi.string(),
+      Mo_Ta: Joi.string(),
+    })
+    .min(1),
+};
+
+const deleteDivisioById = {
+  params: Joi.object().keys({
+    divisioId: Joi.string().custom(objectId),
+  }),
+};
+
 module.exports = {
   createDivisio,
   getDivisios,
+  getDivisio,
+  updateDivisioId,
+  deleteDivisioById,
 };

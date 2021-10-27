@@ -32,6 +32,10 @@ const classisSchema = mongoose.Schema(
 classisSchema.plugin(toJSON);
 classisSchema.plugin(paginate);
 
+classisSchema.statics.isClassisTaken = async function (divisio, excludeClassisId) {
+  const classiExist = await this.findOne({ divisio, _id: { $ne: excludeClassisId } });
+  return !!classiExist;
+};
 /**
  * @typedef Classis
  */

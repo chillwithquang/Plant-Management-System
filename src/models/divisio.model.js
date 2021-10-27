@@ -27,6 +27,10 @@ const divisioSchema = mongoose.Schema(
 divisioSchema.plugin(toJSON);
 divisioSchema.plugin(paginate);
 
+divisioSchema.statics.isDivisioTaken = async function (divisio, excludeDivisioId) {
+  const divisioExist = await this.findOne({ divisio, _id: { $ne: excludeDivisioId } });
+  return !!divisioExist;
+};
 /**
  * @typedef Divisio
  */

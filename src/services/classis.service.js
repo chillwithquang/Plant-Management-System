@@ -38,6 +38,12 @@ const updateClassisById = async (classisId, updateBody) => {
   if (updateBody.Ten_KH && (await Classis.isClassisTaken(updateBody.Ten_KH, classisId))) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Classis already taken');
   }
+  if (updateBody.divisioId) {
+    const divisio = await getDivisioById(updateBody.divisioId);
+    if (!divisio) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Divisio not found');
+    }
+  }
   Object.assign(classis, updateBody);
   await classis.save();
   return classis;

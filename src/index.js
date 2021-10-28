@@ -4,7 +4,12 @@ const config = require('./config/config');
 const logger = require('./config/logger');
 
 let server;
-mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
+
+const MONGO_URL =
+  config.env === 'production'
+    ? 'mongodb+srv://admin:admin@plantsmanagementsystem.i3grx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+    : config.mongoose.url;
+mongoose.connect(MONGO_URL, config.mongoose.options).then(() => {
   logger.info('Connected to MongoDB');
   server = app.listen(config.port, () => {
     logger.info(`Listening to port ${config.port}`);

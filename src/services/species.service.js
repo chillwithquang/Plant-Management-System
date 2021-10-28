@@ -1,16 +1,16 @@
 const httpStatus = require('http-status');
 const { Species } = require('../models');
 const ApiError = require('../utils/ApiError');
-const { getFamiliaById } = require('./genus.service');
+const { getGenusById } = require('./genus.service');
 
 const createSpecies = async (data) => {
   if (await Species.isSpeciesTaken(data.Ten_KH)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Species already taken');
   }
 
-  const genus = await getFamiliaById(data.genusId);
+  const genus = await getGenusById(data.genusId);
   if (!genus) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Familia not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Genus not found');
   }
 
   const speciesDoc = Species.create({
@@ -39,9 +39,9 @@ const updateSpeciesById = async (speciesId, updateBody) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Species already taken');
   }
   if (updateBody.genusId) {
-    const genus = await getFamiliaById(updateBody.genusId);
+    const genus = await getGenusById(updateBody.genusId);
     if (!genus) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'Familia not found');
+      throw new ApiError(httpStatus.NOT_FOUND, 'Genus not found');
     }
   }
   Object.assign(species, updateBody);

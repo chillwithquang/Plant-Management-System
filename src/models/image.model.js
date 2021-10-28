@@ -23,6 +23,11 @@ const imageSchema = mongoose.Schema(
 imageSchema.plugin(toJSON);
 imageSchema.plugin(paginate);
 
+// eslint-disable-next-line camelcase
+imageSchema.statics.isImageTaken = async function (URL, excludeImageId) {
+  const imageExist = await this.findOne({ URL, _id: { $ne: excludeImageId } });
+  return !!imageExist;
+};
 /**
  * @typedef Image
  */

@@ -54,6 +54,11 @@ const speciesSchema = mongoose.Schema(
 speciesSchema.plugin(toJSON);
 speciesSchema.plugin(paginate);
 
+// eslint-disable-next-line camelcase
+speciesSchema.statics.isSpeciesTaken = async function (Ten_KH, excludeSpeciesId) {
+  const speciesExist = await this.findOne({ Ten_KH, _id: { $ne: excludeSpeciesId } });
+  return !!speciesExist;
+};
 /**
  * @typedef Species
  */

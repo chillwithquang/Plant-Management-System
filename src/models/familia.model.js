@@ -17,7 +17,7 @@ const familiaSchema = mongoose.Schema(
     Mo_Ta: {
       type: String,
     },
-    Ho: {
+    Bo: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'Ordo',
       required: true,
@@ -32,6 +32,10 @@ const familiaSchema = mongoose.Schema(
 familiaSchema.plugin(toJSON);
 familiaSchema.plugin(paginate);
 
+familiaSchema.statics.isClassisTaken = async function (classis, excludeClassisId) {
+  const classiExist = await this.findOne({ classis, _id: { $ne: excludeClassisId } });
+  return !!classiExist;
+};
 /**
  * @typedef Familia
  */

@@ -8,3 +8,4 @@ module.exports.ordoService = require('./ordo.service');
 module.exports.familiaService = require('./familia.service');
 module.exports.genusService = require('./genus.service');
 module.exports.specicesService = require('./species.service');
+module.exports.plantService = require('./plant.service');

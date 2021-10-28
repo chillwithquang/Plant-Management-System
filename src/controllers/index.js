@@ -6,3 +6,4 @@ module.exports.ordoController = require('./ordo.controller');
 module.exports.familiaController = require('./familia.controller');
 module.exports.genusController = require('./genus.controller');
 module.exports.speciesController = require('./species.controller');
+module.exports.plantController = require('./plant.controller');

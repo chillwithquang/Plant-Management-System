@@ -54,6 +54,11 @@ const plantSchema = mongoose.Schema(
 plantSchema.plugin(toJSON);
 plantSchema.plugin(paginate);
 
+// eslint-disable-next-line camelcase
+plantSchema.statics.isPlantTaken = async function (Ten_KH, excludePlantId) {
+  const plantExist = await this.findOne({ Ten_KH, _id: { $ne: excludePlantId } });
+  return !!plantExist;
+};
 /**
  * @typedef Plant
  */

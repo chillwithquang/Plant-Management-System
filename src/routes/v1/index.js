@@ -8,6 +8,7 @@ const ordoRoute = require('./ordo.route');
 const familiaRoute = require('./familia.route');
 const genusRoute = require('./genus.route');
 const speciesRoute = require('./specices.route');
+const plantRoute = require('./plant.route');
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -48,6 +49,10 @@ const defaultRoutes = [
   {
     path: '/species',
     route: speciesRoute,
+  },
+  {
+    path: '/plant',
+    route: plantRoute,
   },
 ];
 

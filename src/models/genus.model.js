@@ -32,6 +32,11 @@ const genusSchema = mongoose.Schema(
 genusSchema.plugin(toJSON);
 genusSchema.plugin(paginate);
 
+// eslint-disable-next-line camelcase
+genusSchema.statics.isGenusTaken = async function (Ten_KH, excludeGenusId) {
+  const genusExist = await this.findOne({ Ten_KH, _id: { $ne: excludeGenusId } });
+  return !!genusExist;
+};
 /**
  * @typedef Genus
  */

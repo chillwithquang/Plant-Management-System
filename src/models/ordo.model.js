@@ -32,6 +32,11 @@ const ordoSchema = mongoose.Schema(
 ordoSchema.plugin(toJSON);
 ordoSchema.plugin(paginate);
 
+// eslint-disable-next-line camelcase
+ordoSchema.statics.isOrdoTaken = async function (Ten_KH, excludeOrdoId) {
+  const ordoExist = await this.findOne({ Ten_KH, _id: { $ne: excludeOrdoId } });
+  return !!ordoExist;
+};
 /**
  * @typedef Ordo
  */

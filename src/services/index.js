@@ -4,3 +4,5 @@ module.exports.tokenService = require('./token.service');
 module.exports.userService = require('./user.service');
 module.exports.divisioService = require('./divisio.service');
 module.exports.classisService = require('./classis.service');
+module.exports.ordoService = require('./ordo.service');
+module.exports.familiaService = require('./familia.service');

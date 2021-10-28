@@ -32,9 +32,10 @@ const familiaSchema = mongoose.Schema(
 familiaSchema.plugin(toJSON);
 familiaSchema.plugin(paginate);
 
-familiaSchema.statics.isClassisTaken = async function (classis, excludeClassisId) {
-  const classiExist = await this.findOne({ classis, _id: { $ne: excludeClassisId } });
-  return !!classiExist;
+// eslint-disable-next-line camelcase
+familiaSchema.statics.isFamiliaTaken = async function (Ten_KH, excludeFamiliaId) {
+  const familiaExist = await this.findOne({ Ten_KH, _id: { $ne: excludeFamiliaId } });
+  return !!familiaExist;
 };
 /**
  * @typedef Familia

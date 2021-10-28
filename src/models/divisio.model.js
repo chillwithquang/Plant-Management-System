@@ -27,8 +27,9 @@ const divisioSchema = mongoose.Schema(
 divisioSchema.plugin(toJSON);
 divisioSchema.plugin(paginate);
 
-divisioSchema.statics.isDivisioTaken = async function (divisio, excludeDivisioId) {
-  const divisioExist = await this.findOne({ divisio, _id: { $ne: excludeDivisioId } });
+// eslint-disable-next-line camelcase
+divisioSchema.statics.isDivisioTaken = async function (Ten_KH, excludeDivisioId) {
+  const divisioExist = await this.findOne({ Ten_KH, _id: { $ne: excludeDivisioId } });
   return !!divisioExist;
 };
 /**

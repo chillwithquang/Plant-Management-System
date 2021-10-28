@@ -9,7 +9,7 @@ const familiaRoute = require('./familia.route');
 const genusRoute = require('./genus.route');
 const speciesRoute = require('./specices.route');
 const plantRoute = require('./plant.route');
-const imageRoute = require('./plant.route');
+const imageRoute = require('./image.route');
 const config = require('../../config/config');
 
 const router = express.Router();

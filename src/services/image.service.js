@@ -15,7 +15,7 @@ const createImage = async (data) => {
 
   const imageDoc = Image.create({
     ...data,
-    Chi: data.speciesId,
+    Loai: data.speciesId,
   });
 
   return imageDoc;

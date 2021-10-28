@@ -3,7 +3,7 @@ const { objectId } = require('./custom.validation');
 
 const createPlant = {
   body: Joi.object().keys({
-    Ten_Cay: Joi.string().required(),
+    Ten_KH: Joi.string().required(),
     Noi_Lay: Joi.string(),
     Noi_Moc: Joi.string(),
     So_Luong: Joi.string(),
@@ -39,7 +39,7 @@ const updatePlant = {
   }),
   body: Joi.object()
     .keys({
-      Ten_Cay: Joi.string().required(),
+      Ten_KH: Joi.string().required(),
       Noi_Lay: Joi.string(),
       Noi_Moc: Joi.string(),
       So_Luong: Joi.string(),

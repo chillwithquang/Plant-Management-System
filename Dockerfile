@@ -8,8 +8,8 @@ COPY package.json yarn.lock ./
 
 USER node
 
-RUN npm install --pure-lockfile
+RUN yarn install --pure-lockfile
 
 COPY --chown=node:node . .
 
-EXPOSE 3000
+EXPOSE 8888

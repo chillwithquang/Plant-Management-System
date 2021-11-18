@@ -13,5 +13,7 @@ router
   .get(auth(MODES.GET), validate(imageValidation.getImages), imageController.getImages);
 
 router.route('/:imageId').delete(auth(MODES.MANAGE), validate(imageValidation.deleteImage), imageController.deleteImage);
-
+router
+  .route('/getByIdLoai/:idLoai')
+  .get(auth(MODES.GET), validate(imageValidation.getImageByIdLoai), imageController.getImageByIdLoai);
 module.exports = router;

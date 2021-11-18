@@ -44,11 +44,23 @@ const deleteOrdo = {
     ordoId: Joi.string().custom(objectId),
   }),
 };
+const getOrderByName = {
+  params: Joi.object().keys({
+    orderName: Joi.string(),
+  }),
+};
 
+const suggestOrderName = {
+  params: Joi.object().keys({
+    name: Joi.string(),
+  }),
+};
 module.exports = {
   createOrdo,
   getOrdos,
   getOrdo,
   updateOrdo,
   deleteOrdo,
+  getOrderByName,
+  suggestOrderName,
 };

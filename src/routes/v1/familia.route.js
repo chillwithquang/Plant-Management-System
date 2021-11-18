@@ -17,5 +17,10 @@ router
   .get(auth(MODES.GET), validate(familiaValidation.getFamilia), familiaController.getFamilia)
   .patch(auth(MODES.MANAGE), validate(familiaValidation.updateFamilia), familiaController.updateFamilia)
   .delete(auth(MODES.MANAGE), validate(familiaValidation.deleteFamilia), familiaController.deleteFamilia);
-
+router
+  .route('/getByName/:familiaName')
+  .get(auth(MODES.GET), validate(familiaValidation.getFamiliaByName), familiaController.getFamiliaByName);
+router
+  .route('/suggest/:name')
+  .get(auth(MODES.GET), validate(familiaValidation.suggestFamiliaName), familiaController.suggestFamiliaName);
 module.exports = router;

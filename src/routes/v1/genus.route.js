@@ -17,5 +17,10 @@ router
   .get(auth(MODES.GET), validate(genusValidation.getGenus), genusController.getGenus)
   .patch(auth(MODES.MANAGE), validate(genusValidation.updateGenus), genusController.updateGenus)
   .delete(auth(MODES.MANAGE), validate(genusValidation.deleteGenus), genusController.deleteGenus);
-
+router
+  .route('/getByName/:genusName')
+  .get(auth(MODES.GET), validate(genusValidation.getGenusByName), genusController.getGenusByName);
+router
+  .route('/suggest/:name')
+  .get(auth(MODES.GET), validate(genusValidation.suggestGenusName), genusController.suggestGenusName);
 module.exports = router;

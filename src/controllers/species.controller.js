@@ -33,11 +33,31 @@ const deleteSpecies = catchAsync(async (req, res) => {
   await speciesService.deleteSpeciesById(req.params.speciesId);
   res.status(httpStatus.NO_CONTENT).send();
 });
+const getSpeciesByName = catchAsync(async (req, res) => {
+  const species = await speciesService.getSpeciesByName(req.params.speciesName);
+  if (!species) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Species not found');
+  }
+  res.send(species);
+});
 
+const suggestSpeciesName = catchAsync(async (req, res) => {
+  const species = await speciesService.suggestSpeciesName();
+  const suggestion = [];
+  for (let i = 0; i < species.length; i += 1) {
+    suggestion.push(species[i].Ten_KH);
+  }
+  if (!suggestion) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Species not found');
+  }
+  res.send(suggestion.filter((value) => value.includes(req.params.name)));
+});
 module.exports = {
   createSpecies,
   getSpeciess,
   getSpecies,
   updateSpecies,
   deleteSpecies,
+  getSpeciesByName,
+  suggestSpeciesName,
 };

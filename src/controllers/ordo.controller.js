@@ -33,11 +33,31 @@ const deleteOrdo = catchAsync(async (req, res) => {
   await ordoService.deleteOrdoById(req.params.ordoId);
   res.status(httpStatus.NO_CONTENT).send();
 });
+const getOrderByName = catchAsync(async (req, res) => {
+  const order = await ordoService.getOrderByName(req.params.orderName);
+  if (!order) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
+  }
+  res.send(order);
+});
 
+const suggestOrderName = catchAsync(async (req, res) => {
+  const order = await ordoService.suggestOrderName();
+  const suggestion = [];
+  for (let i = 0; i < order.length; i += 1) {
+    suggestion.push(order[i].Ten_KH);
+  }
+  if (!suggestion) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
+  }
+  res.send(suggestion.filter((value) => value.includes(req.params.name)));
+});
 module.exports = {
   createOrdo,
   getOrdos,
   getOrdo,
   updateOrdo,
   deleteOrdo,
+  getOrderByName,
+  suggestOrderName,
 };

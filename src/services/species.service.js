@@ -57,11 +57,19 @@ const deleteSpeciesById = async (speciesId) => {
   await species.remove();
   return species;
 };
+const getSpeciesByName = async (speciesName) => {
+  return Species.find({ Ten_KH: speciesName });
+};
 
+const suggestSpeciesName = async () => {
+  return Species.find({});
+};
 module.exports = {
   createSpecies,
   querySpeciess,
   getSpeciesById,
   updateSpeciesById,
   deleteSpeciesById,
+  getSpeciesByName,
+  suggestSpeciesName,
 };

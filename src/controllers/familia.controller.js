@@ -33,11 +33,31 @@ const deleteFamilia = catchAsync(async (req, res) => {
   await familiaService.deleteFamiliaById(req.params.familiaId);
   res.status(httpStatus.NO_CONTENT).send();
 });
+const getFamiliaByName = catchAsync(async (req, res) => {
+  const familia = await familiaService.getFamiliaByName(req.params.familiaName);
+  if (!familia) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Familia not found');
+  }
+  res.send(familia);
+});
 
+const suggestFamiliaName = catchAsync(async (req, res) => {
+  const familia = await familiaService.suggestFamiliaName();
+  const suggestion = [];
+  for (let i = 0; i < familia.length; i += 1) {
+    suggestion.push(familia[i].Ten_KH);
+  }
+  if (!suggestion) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Familia not found');
+  }
+  res.send(suggestion.filter((value) => value.includes(req.params.name)));
+});
 module.exports = {
   createFamilia,
   getFamilias,
   getFamilia,
   updateFamilia,
   deleteFamilia,
+  getFamiliaByName,
+  suggestFamiliaName,
 };

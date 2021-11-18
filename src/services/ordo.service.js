@@ -57,11 +57,19 @@ const deleteOrdoById = async (ordoId) => {
   await ordo.remove();
   return ordo;
 };
+const getOrderByName = async (orderName) => {
+  return Ordo.find({ Ten_KH: orderName });
+};
 
+const suggestOrderName = async () => {
+  return Ordo.find({});
+};
 module.exports = {
   createOrdo,
   queryOrdos,
   getOrdoById,
   updateOrdoById,
   deleteOrdoById,
+  getOrderByName,
+  suggestOrderName,
 };

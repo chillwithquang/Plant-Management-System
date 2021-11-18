@@ -44,11 +44,23 @@ const deleteGenus = {
     genusId: Joi.string().custom(objectId),
   }),
 };
+const getGenusByName = {
+  params: Joi.object().keys({
+    genusName: Joi.string(),
+  }),
+};
 
+const suggestGenusName = {
+  params: Joi.object().keys({
+    name: Joi.string(),
+  }),
+};
 module.exports = {
   createGenus,
   getGenuss,
   getGenus,
   updateGenus,
   deleteGenus,
+  getGenusByName,
+  suggestGenusName,
 };

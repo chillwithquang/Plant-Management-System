@@ -43,10 +43,24 @@ const deleteDivisioById = {
   }),
 };
 
+const getDivisioByName = {
+  params: Joi.object().keys({
+    divisioName: Joi.string(),
+  }),
+};
+
+const suggestDivisioName = {
+  params: Joi.object().keys({
+    name: Joi.string(),
+  }),
+};
+
 module.exports = {
   createDivisio,
   getDivisios,
   getDivisio,
   updateDivisioId,
   deleteDivisioById,
+  getDivisioByName,
+  suggestDivisioName,
 };

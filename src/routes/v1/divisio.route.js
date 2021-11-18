@@ -18,4 +18,11 @@ router
   .patch(auth(MODES.MANAGE), validate(divisioValidation.updateDivisio), divisioController.updateDivisio)
   .delete(auth(MODES.MANAGE), validate(divisioValidation.deleteDivisio), divisioController.deleteDivisio);
 
+router
+  .route('/getByName/:divisioName')
+  .get(auth(MODES.GET), validate(divisioValidation.getDivisioByName), divisioController.getDivisioByName);
+
+router
+  .route('/suggest/:name')
+  .get(auth(MODES.GET), validate(divisioValidation.suggestDivisioName), divisioController.suggestDivisioName);
 module.exports = router;

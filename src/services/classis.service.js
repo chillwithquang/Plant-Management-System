@@ -58,10 +58,20 @@ const deleteClassisById = async (classisId) => {
   return classis;
 };
 
+const getClassisByName = async (divisioName) => {
+  return Classis.find({ Ten_KH: divisioName });
+};
+
+const suggestClassisName = async () => {
+  return Classis.find({});
+};
+
 module.exports = {
   createClassis,
   queryClassiss,
   getClassisById,
   updateClassisById,
   deleteClassisById,
+  getClassisByName,
+  suggestClassisName,
 };

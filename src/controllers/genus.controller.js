@@ -33,11 +33,31 @@ const deleteGenus = catchAsync(async (req, res) => {
   await genusService.deleteGenusById(req.params.genusId);
   res.status(httpStatus.NO_CONTENT).send();
 });
+const getGenusByName = catchAsync(async (req, res) => {
+  const genus = await genusService.getGenusByName(req.params.genusName);
+  if (!genus) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Genus not found');
+  }
+  res.send(genus);
+});
 
+const suggestGenusName = catchAsync(async (req, res) => {
+  const genus = await genusService.suggestGenusName();
+  const suggestion = [];
+  for (let i = 0; i < genus.length; i += 1) {
+    suggestion.push(genus[i].Ten_KH);
+  }
+  if (!suggestion) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'genus not found');
+  }
+  res.send(suggestion.filter((value) => value.includes(req.params.name)));
+});
 module.exports = {
   createGenus,
   getGenuss,
   getGenus,
   updateGenus,
   deleteGenus,
+  getGenusByName,
+  suggestGenusName,
 };

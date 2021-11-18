@@ -22,9 +22,14 @@ const deleteImage = {
     imageId: Joi.string().custom(objectId),
   }),
 };
-
+const getImageByIdLoai = {
+  params: Joi.object().keys({
+    idLoai: Joi.string(),
+  }),
+};
 module.exports = {
   createImage,
   getImages,
   deleteImage,
+  getImageByIdLoai,
 };

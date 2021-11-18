@@ -34,10 +34,32 @@ const deleteClassis = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const getClassisByName = catchAsync(async (req, res) => {
+  const classis = await classisService.getClassisByName(req.params.classisName);
+  if (!classis) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Classis not found');
+  }
+  res.send(classis);
+});
+
+const suggestClassisName = catchAsync(async (req, res) => {
+  const classis = await classisService.suggestClassisName();
+  const suggestion = [];
+  for (let i = 0; i < classis.length; i += 1) {
+    suggestion.push(classis[i].Ten_KH);
+  }
+  if (!suggestion) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Classis not found');
+  }
+  res.send(suggestion.filter((value) => value.includes(req.params.name)));
+});
+
 module.exports = {
   createClassis,
   getClassiss,
   getClassis,
   updateClassis,
   deleteClassis,
+  getClassisByName,
+  suggestClassisName,
 };

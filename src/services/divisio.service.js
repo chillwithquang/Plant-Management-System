@@ -40,10 +40,20 @@ const deleteDivisioById = async (divisioId) => {
   return divisio;
 };
 
+const getDivisioByName = async (divisioName) => {
+  return Divisio.find({ Ten_KH: divisioName });
+};
+
+const suggestDivisioName = async () => {
+  return Divisio.find({});
+};
+
 module.exports = {
   createDivisio,
   queryDivisios,
   getDivisioById,
   updateDivisioById,
   deleteDivisioById,
+  getDivisioByName,
+  suggestDivisioName,
 };

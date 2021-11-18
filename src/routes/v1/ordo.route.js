@@ -17,5 +17,10 @@ router
   .get(auth(MODES.GET), validate(ordoValidation.getOrdo), ordoController.getOrdo)
   .patch(auth(MODES.MANAGE), validate(ordoValidation.updateOrdo), ordoController.updateOrdo)
   .delete(auth(MODES.MANAGE), validate(ordoValidation.deleteOrdo), ordoController.deleteOrdo);
-
+router
+  .route('/getByName/:orderName')
+  .get(auth(MODES.GET), validate(ordoValidation.getOrderByName), ordoController.getOrderByName);
+router
+  .route('/suggest/:name')
+  .get(auth(MODES.GET), validate(ordoValidation.suggestOrderName), ordoController.suggestOrderName);
 module.exports = router;

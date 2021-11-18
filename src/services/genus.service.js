@@ -57,11 +57,19 @@ const deleteGenusById = async (genusId) => {
   await genus.remove();
   return genus;
 };
+const getGenusByName = async (genusName) => {
+  return Genus.find({ Ten_KH: genusName });
+};
 
+const suggestGenusName = async () => {
+  return Genus.find({});
+};
 module.exports = {
   createGenus,
   queryGenuss,
   getGenusById,
   updateGenusById,
   deleteGenusById,
+  getGenusByName,
+  suggestGenusName,
 };

@@ -45,10 +45,24 @@ const deleteClassis = {
   }),
 };
 
+const getClassisByName = {
+  params: Joi.object().keys({
+    classisName: Joi.string(),
+  }),
+};
+
+const suggestClassisName = {
+  params: Joi.object().keys({
+    name: Joi.string(),
+  }),
+};
+
 module.exports = {
   createClassis,
   getClassiss,
   getClassis,
   updateClassis,
   deleteClassis,
+  getClassisByName,
+  suggestClassisName,
 };

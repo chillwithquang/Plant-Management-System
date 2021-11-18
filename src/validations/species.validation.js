@@ -60,11 +60,23 @@ const deleteSpecies = {
     speciesId: Joi.string().custom(objectId),
   }),
 };
+const getSpeciesByName = {
+  params: Joi.object().keys({
+    speciesName: Joi.string(),
+  }),
+};
 
+const suggestSpeciesName = {
+  params: Joi.object().keys({
+    name: Joi.string(),
+  }),
+};
 module.exports = {
   createSpecies,
   getSpeciess,
   getSpecies,
   updateSpecies,
   deleteSpecies,
+  getSpeciesByName,
+  suggestSpeciesName,
 };

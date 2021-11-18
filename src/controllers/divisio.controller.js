@@ -34,10 +34,32 @@ const deleteDivisio = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const getDivisioByName = catchAsync(async (req, res) => {
+  const divisio = await divisioService.getDivisioByName(req.params.divisioName);
+  if (!divisio) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Divisio not found');
+  }
+  res.send(divisio);
+});
+
+const suggestDivisioName = catchAsync(async (req, res) => {
+  const divisios = await divisioService.suggestDivisioName();
+  const suggestion = [];
+  for (let i = 0; i < divisios.length; i += 1) {
+    suggestion.push(divisios[i].Ten_KH);
+  }
+  if (!suggestion) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Divisio not found');
+  }
+  res.send(suggestion.filter((value) => value.includes(req.params.name)));
+});
+
 module.exports = {
   createDivisio,
   getDivisios,
   getDivisio,
   updateDivisio,
   deleteDivisio,
+  getDivisioByName,
+  suggestDivisioName,
 };

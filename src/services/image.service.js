@@ -38,10 +38,14 @@ const deleteImageById = async (imageId) => {
   await image.remove();
   return image;
 };
-
+const getImageByIdLoai = async (idLoai) => {
+  // eslint-disable-next-line object-shorthand
+  return Image.find({ idLoai: idLoai });
+};
 module.exports = {
   createImage,
   queryImages,
   getImageById,
   deleteImageById,
+  getImageByIdLoai,
 };

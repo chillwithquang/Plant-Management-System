@@ -57,11 +57,19 @@ const deleteFamiliaById = async (familiaId) => {
   await familia.remove();
   return familia;
 };
+const getFamiliaByName = async (familiaName) => {
+  return Familia.find({ Ten_KH: familiaName });
+};
 
+const suggestFamiliaName = async () => {
+  return Familia.find({});
+};
 module.exports = {
   createFamilia,
   queryFamilias,
   getFamiliaById,
   updateFamiliaById,
   deleteFamiliaById,
+  getFamiliaByName,
+  suggestFamiliaName,
 };

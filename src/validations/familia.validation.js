@@ -44,11 +44,23 @@ const deleteFamilia = {
     familiaId: Joi.string().custom(objectId),
   }),
 };
+const getFamiliaByName = {
+  params: Joi.object().keys({
+    familiaName: Joi.string(),
+  }),
+};
 
+const suggestFamiliaName = {
+  params: Joi.object().keys({
+    name: Joi.string(),
+  }),
+};
 module.exports = {
   createFamilia,
   getFamilias,
   getFamilia,
   updateFamilia,
   deleteFamilia,
+  getFamiliaByName,
+  suggestFamiliaName,
 };

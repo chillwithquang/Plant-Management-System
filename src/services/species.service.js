@@ -2,20 +2,24 @@ const httpStatus = require('http-status');
 const { Species } = require('../models');
 const ApiError = require('../utils/ApiError');
 const { getGenusById } = require('./genus.service');
+const { getFamiliaById } = require('./familia.service');
+const { getOrdoById } = require('./ordo.service');
+const { getClassisById } = require('./classis.service');
+const { getDivisioById } = require('./divisio.service');
 
 const createSpecies = async (data) => {
   if (await Species.isSpeciesTaken(data.Ten_KH)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Species already taken');
   }
 
-  const genus = await getGenusById(data.genusId);
+  const genus = await getGenusById(data.idChi);
   if (!genus) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Genus not found');
   }
 
   const speciesDoc = Species.create({
     ...data,
-    Chi: data.genusId,
+    idChi: data.idChi,
   });
 
   return speciesDoc;
@@ -38,8 +42,8 @@ const updateSpeciesById = async (speciesId, updateBody) => {
   if (updateBody.Ten_KH && (await Species.isSpeciesTaken(updateBody.Ten_KH, speciesId))) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Species already taken');
   }
-  if (updateBody.genusId) {
-    const genus = await getGenusById(updateBody.genusId);
+  if (updateBody.idChi) {
+    const genus = await getGenusById(updateBody.idChi);
     if (!genus) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Genus not found');
     }
@@ -64,6 +68,41 @@ const getSpeciesByName = async (speciesName) => {
 const suggestSpeciesName = async () => {
   return Species.find({});
 };
+
+const getParentSpecies = async (genusId) => {
+  const genus = (await getGenusById(genusId)).toJSON();
+  if (!genus) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'not not found abc');
+  }
+  const familia = (await getFamiliaById(genus.idHo)).toJSON();
+  if (!familia) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'not not found xyz');
+  }
+  const order = (await getOrdoById(familia.idBo)).toJSON();
+  if (!order) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Order not found a');
+  }
+
+  const classis = (await getClassisById(order.idLop)).toJSON();
+  if (!classis) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Classis not found a');
+  }
+
+  const divisio = (await getDivisioById(classis.idNganh)).toJSON();
+  if (!divisio) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Divisio not found a');
+  }
+
+  // const parent = [genus.Ten_KH, familia.Ten_KH, order.Ten_KH, classis.Ten_KH, divisio.Ten_KH];
+  const parent = {
+    genusName: genus.Ten_KH,
+    familiaName: familia.Ten_KH,
+    orderName: order.Ten_KH,
+    classisName: classis.Ten_KH,
+    divisioName: divisio.Ten_KH,
+  };
+  return parent;
+};
 module.exports = {
   createSpecies,
   querySpeciess,
@@ -72,4 +111,5 @@ module.exports = {
   deleteSpeciesById,
   getSpeciesByName,
   suggestSpeciesName,
+  getParentSpecies,
 };

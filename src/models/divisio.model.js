@@ -8,10 +8,7 @@ const divisioSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    Ten_Latin: {
-      type: String,
-    },
-    Ten_TV_Khac: {
+    Ten_TV: {
       type: String,
     },
     Mo_Ta: {

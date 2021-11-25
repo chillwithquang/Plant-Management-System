@@ -8,16 +8,13 @@ const familiaSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    Ten_Latin: {
-      type: String,
-    },
-    Ten_TV_Khac: {
+    Ten_TV: {
       type: String,
     },
     Mo_Ta: {
       type: String,
     },
-    Bo: {
+    idBo: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'Ordo',
       required: true,

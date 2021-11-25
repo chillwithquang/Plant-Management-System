@@ -4,17 +4,15 @@ const { objectId } = require('./custom.validation');
 const createSpecies = {
   body: Joi.object().keys({
     Ten_KH: Joi.string().required(),
-    Ten_TV_Khac: Joi.string(),
-    Ten_Latin: Joi.string(),
-    Ten_Latin_Khac: Joi.string(),
+    Ten_TV: Joi.string(),
     Dac_Diem_Nhan_Dang: Joi.string(),
     Sinh_Hoc_Sinh_Thai: Joi.string(),
     Phan_Bo: Joi.string(),
     Gia_Tri: Joi.string(),
     Tinh_Trang: Joi.string(),
     Bien_Phap_BV: Joi.string(),
-    Danh_Song: Joi.string(),
-    genusId: Joi.string().custom(objectId).required(),
+    Dang_Song: Joi.string(),
+    idChi: Joi.string().custom(objectId).required(),
   }),
 };
 
@@ -40,17 +38,15 @@ const updateSpecies = {
   body: Joi.object()
     .keys({
       Ten_KH: Joi.string().required(),
-      Ten_TV_Khac: Joi.string(),
-      Ten_Latin: Joi.string(),
-      Ten_Latin_Khac: Joi.string(),
+      Ten_TV: Joi.string(),
       Dac_Diem_Nhan_Dang: Joi.string(),
       Sinh_Hoc_Sinh_Thai: Joi.string(),
       Phan_Bo: Joi.string(),
       Gia_Tri: Joi.string(),
       Tinh_Trang: Joi.string(),
       Bien_Phap_BV: Joi.string(),
-      Danh_Song: Joi.string(),
-      genusId: Joi.string().custom(objectId),
+      Dang_Song: Joi.string(),
+      idChi: Joi.string().custom(objectId),
     })
     .min(1),
 };
@@ -71,6 +67,12 @@ const suggestSpeciesName = {
     name: Joi.string(),
   }),
 };
+
+const getParentSpecies = {
+  params: Joi.object().keys({
+    genusId: Joi.string().custom(objectId),
+  }),
+};
 module.exports = {
   createSpecies,
   getSpeciess,
@@ -79,4 +81,5 @@ module.exports = {
   deleteSpecies,
   getSpeciesByName,
   suggestSpeciesName,
+  getParentSpecies,
 };

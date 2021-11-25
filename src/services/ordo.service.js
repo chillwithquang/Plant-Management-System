@@ -8,14 +8,14 @@ const createOrdo = async (data) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Ordo already taken');
   }
 
-  const classis = await getClassisById(data.classisId);
+  const classis = await getClassisById(data.idLop);
   if (!classis) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Classis not found');
   }
 
   const ordoDoc = Ordo.create({
     ...data,
-    Lop: data.classisId,
+    idLop: data.idLop,
   });
 
   return ordoDoc;
@@ -38,8 +38,8 @@ const updateOrdoById = async (ordoId, updateBody) => {
   if (updateBody.Ten_KH && (await Ordo.isOrdoTaken(updateBody.Ten_KH, ordoId))) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Ordo already taken');
   }
-  if (updateBody.classisId) {
-    const classis = await getClassisById(updateBody.classisId);
+  if (updateBody.idLop) {
+    const classis = await getClassisById(updateBody.idLop);
     if (!classis) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Classis not found');
     }

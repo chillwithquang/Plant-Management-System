@@ -8,14 +8,14 @@ const createGenus = async (data) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Genus already taken');
   }
 
-  const familia = await getFamiliaById(data.familiaId);
+  const familia = await getFamiliaById(data.idHo);
   if (!familia) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Familia not found');
   }
 
   const genusDoc = Genus.create({
     ...data,
-    Ho: data.familiaId,
+    idHo: data.idHo,
   });
 
   return genusDoc;
@@ -38,8 +38,8 @@ const updateGenusById = async (genusId, updateBody) => {
   if (updateBody.Ten_KH && (await Genus.isGenusTaken(updateBody.Ten_KH, genusId))) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Genus already taken');
   }
-  if (updateBody.familiaId) {
-    const familia = await getFamiliaById(updateBody.familiaId);
+  if (updateBody.idHo) {
+    const familia = await getFamiliaById(updateBody.idHo);
     if (!familia) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Familia not found');
     }

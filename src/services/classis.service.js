@@ -15,7 +15,7 @@ const createClassis = async (data) => {
 
   const classisDoc = Classis.create({
     ...data,
-    Nganh: data.divisioId,
+    idNganh: data.divisioId,
   });
 
   return classisDoc;
@@ -38,8 +38,8 @@ const updateClassisById = async (classisId, updateBody) => {
   if (updateBody.Ten_KH && (await Classis.isClassisTaken(updateBody.Ten_KH, classisId))) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Classis already taken');
   }
-  if (updateBody.divisioId) {
-    const divisio = await getDivisioById(updateBody.divisioId);
+  if (updateBody.idNganh) {
+    const divisio = await getDivisioById(updateBody.idNganh);
     if (!divisio) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Divisio not found');
     }

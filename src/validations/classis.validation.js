@@ -4,7 +4,7 @@ const { objectId } = require('./custom.validation');
 const createClassis = {
   body: Joi.object().keys({
     Ten_KH: Joi.string().required(),
-    Ten_Latin: Joi.string(),
+    Ten_TV: Joi.string(),
     Mo_Ta: Joi.string(),
     divisioId: Joi.string().custom(objectId).required(),
   }),
@@ -32,9 +32,9 @@ const updateClassis = {
   body: Joi.object()
     .keys({
       Ten_KH: Joi.string(),
-      Ten_Latin: Joi.string(),
+      Ten_TV: Joi.string(),
       Mo_Ta: Joi.string(),
-      divisioId: Joi.string().custom(objectId),
+      idNganh: Joi.string().custom(objectId),
     })
     .min(1),
 };

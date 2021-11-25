@@ -52,6 +52,14 @@ const suggestSpeciesName = catchAsync(async (req, res) => {
   }
   res.send(suggestion.filter((value) => value.includes(req.params.name)));
 });
+
+const getParentSpecies = catchAsync(async (req, res) => {
+  const parent = await speciesService.getParentSpecies(req.params.genusId);
+  if (!parent) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Species parent not found');
+  }
+  res.send(parent);
+});
 module.exports = {
   createSpecies,
   getSpeciess,
@@ -60,4 +68,5 @@ module.exports = {
   deleteSpecies,
   getSpeciesByName,
   suggestSpeciesName,
+  getParentSpecies,
 };

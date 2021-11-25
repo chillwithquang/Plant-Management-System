@@ -23,4 +23,7 @@ router
 router
   .route('/suggest/:name')
   .get(auth(MODES.GET), validate(speciesValidation.suggestSpeciesName), speciesController.suggestSpeciesName);
+router
+  .route('/getParentByGenusId/:genusId')
+  .get(auth(MODES.GET), validate(speciesValidation.getParentSpecies), speciesController.getParentSpecies);
 module.exports = router;

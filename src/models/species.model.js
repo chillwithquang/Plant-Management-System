@@ -8,15 +8,8 @@ const speciesSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    Ten_TV_Khac: {
+    Ten_TV: {
       type: String,
-    },
-    Ten_Latin: {
-      type: String,
-    },
-    Ten_Latin_Khac: {
-      type: String,
-      required: true,
     },
     Dac_Diem_Nhan_Dang: {
       type: String,
@@ -36,10 +29,10 @@ const speciesSchema = mongoose.Schema(
     Bien_Phap_BV: {
       type: String,
     },
-    Danh_Song: {
+    Dang_Song: {
       type: String,
     },
-    Chi: {
+    idChi: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'Genus',
       required: true,

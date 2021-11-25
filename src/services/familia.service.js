@@ -8,14 +8,14 @@ const createFamilia = async (data) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Familia already taken');
   }
 
-  const ordo = await getOrdoById(data.ordoId);
+  const ordo = await getOrdoById(data.idBo);
   if (!ordo) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Ordo not found');
   }
 
   const familiaDoc = Familia.create({
     ...data,
-    Bo: data.ordoId,
+    idBo: data.idBo,
   });
 
   return familiaDoc;
@@ -38,8 +38,8 @@ const updateFamiliaById = async (familiaId, updateBody) => {
   if (updateBody.Ten_KH && (await Familia.isFamiliaTaken(updateBody.Ten_KH, familiaId))) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Familia already taken');
   }
-  if (updateBody.ordoId) {
-    const ordo = await getOrdoById(updateBody.ordoId);
+  if (updateBody.idBo) {
+    const ordo = await getOrdoById(updateBody.idBo);
     if (!ordo) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Ordo not found');
     }

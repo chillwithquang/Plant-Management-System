@@ -4,7 +4,7 @@ const { objectId } = require('./custom.validation');
 const createDivisio = {
   body: Joi.object().keys({
     Ten_KH: Joi.string().required(),
-    Ten_Latin: Joi.string(),
+    Ten_TV: Joi.string(),
     Mo_Ta: Joi.string(),
   }),
 };

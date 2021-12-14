@@ -8,9 +8,9 @@ let server;
 const MONGODB_URL =
   config.env === 'production'
     ? 'mongodb+srv://admin:admin@plantsmanagementsystem.i3grx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-    : 'config.mongoose.url';
+    : config.mongoose.url;
 
-console.log('@@mongodb: ', MONGODB_URL);
+logger.info(`@@mongodb ${MONGODB_URL}`);
 
 mongoose.connect(MONGODB_URL, config.mongoose.options).then(() => {
   logger.info('Connected to MongoDB');

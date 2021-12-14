@@ -33,6 +33,17 @@ const deleteSpecies = catchAsync(async (req, res) => {
   await speciesService.deleteSpeciesById(req.params.speciesId);
   res.status(httpStatus.NO_CONTENT).send();
 });
+
+const eraseSpecies = catchAsync(async (req, res) => {
+  await speciesService.eraseSpeciesById(req.params.speciesId, req.params.eraser);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+const restoreSpecies = catchAsync(async (req, res) => {
+  await speciesService.restoreSpeciesById(req.params.speciesId);
+  res.status(httpStatus.OK).send();
+});
+
 const getSpeciesByName = catchAsync(async (req, res) => {
   const species = await speciesService.getSpeciesByName(req.params.speciesName);
   if (!species) {
@@ -66,6 +77,8 @@ module.exports = {
   getSpecies,
   updateSpecies,
   deleteSpecies,
+  eraseSpecies,
+  restoreSpecies,
   getSpeciesByName,
   suggestSpeciesName,
   getParentSpecies,

@@ -4,7 +4,7 @@ const { objectId } = require('./custom.validation');
 const createImage = {
   body: Joi.object().keys({
     URL: Joi.string().required(),
-    speciesId: Joi.string().custom(objectId).required(),
+    idLoai: Joi.string().custom(objectId).required(),
   }),
 };
 

@@ -8,7 +8,7 @@ const imageSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    Loai: {
+    idLoai: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'Species',
       required: true,

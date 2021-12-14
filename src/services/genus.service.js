@@ -57,6 +57,25 @@ const deleteGenusById = async (genusId) => {
   await genus.remove();
   return genus;
 };
+
+const eraseGenusById = async (genusId, eraser) => {
+  const genus = await getGenusById(genusId);
+  if (!genus) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Genus not found');
+  }
+  await genus.delete(eraser);
+  return genus;
+};
+
+const restoreGenusById = async (genusId) => {
+  const genus = await getGenusById(genusId);
+  if (!genus) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Genus not found');
+  }
+  await genus.restore();
+  return genus;
+};
+
 const getGenusByName = async (genusName) => {
   return Genus.find({ Ten_KH: genusName });
 };
@@ -70,6 +89,8 @@ module.exports = {
   getGenusById,
   updateGenusById,
   deleteGenusById,
+  eraseGenusById,
+  restoreGenusById,
   getGenusByName,
   suggestGenusName,
 };

@@ -18,6 +18,12 @@ router
   .patch(auth(MODES.MANAGE), validate(ordoValidation.updateOrdo), ordoController.updateOrdo)
   .delete(auth(MODES.MANAGE), validate(ordoValidation.deleteOrdo), ordoController.deleteOrdo);
 router
+  .route('/:ordoId/:eraser')
+  .delete(auth(MODES.MANAGE), validate(ordoValidation.eraseOrdoById), ordoController.eraseOrdo);
+
+router.route('/restore/:ordoId').patch(auth(MODES.GET), validate(ordoValidation.restoreOrdo), ordoController.restoreOrdo);
+
+router
   .route('/getByName/:orderName')
   .get(auth(MODES.GET), validate(ordoValidation.getOrderByName), ordoController.getOrderByName);
 router

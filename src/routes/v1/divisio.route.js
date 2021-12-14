@@ -16,8 +16,15 @@ router
   .route('/:divisioId')
   .get(auth(MODES.GET), validate(divisioValidation.getDivisio), divisioController.getDivisio)
   .patch(auth(MODES.MANAGE), validate(divisioValidation.updateDivisio), divisioController.updateDivisio)
-  .delete(auth(MODES.MANAGE), validate(divisioValidation.deleteDivisio), divisioController.deleteDivisio);
+  .delete(auth(MODES.MANAGE), validate(divisioValidation.deleteDivisioById), divisioController.deleteDivisio);
 
+router
+  .route('/:divisioId/:eraser')
+  .delete(auth(MODES.MANAGE), validate(divisioValidation.eraseDivisioById), divisioController.eraseDivisio);
+
+router
+  .route('/restore/:divisioId')
+  .patch(auth(MODES.GET), validate(divisioValidation.restoreDivisio), divisioController.restoreDivisio);
 router
   .route('/getByName/:divisioName')
   .get(auth(MODES.GET), validate(divisioValidation.getDivisioByName), divisioController.getDivisioByName);

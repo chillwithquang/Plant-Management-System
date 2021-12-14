@@ -15,6 +15,7 @@ const getDivisios = {
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
+    deleted: Joi.number().integer(),
   }),
 };
 
@@ -43,6 +44,19 @@ const deleteDivisioById = {
   }),
 };
 
+const eraseDivisioById = {
+  params: Joi.object().keys({
+    divisioId: Joi.string().custom(objectId),
+    eraser: Joi.string(),
+  }),
+};
+
+const restoreDivisio = {
+  params: Joi.object().keys({
+    divisioId: Joi.string().custom(objectId),
+  }),
+};
+
 const getDivisioByName = {
   params: Joi.object().keys({
     divisioName: Joi.string(),
@@ -61,6 +75,8 @@ module.exports = {
   getDivisio,
   updateDivisioId,
   deleteDivisioById,
+  eraseDivisioById,
+  restoreDivisio,
   getDivisioByName,
   suggestDivisioName,
 };

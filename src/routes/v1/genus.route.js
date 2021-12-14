@@ -17,6 +17,15 @@ router
   .get(auth(MODES.GET), validate(genusValidation.getGenus), genusController.getGenus)
   .patch(auth(MODES.MANAGE), validate(genusValidation.updateGenus), genusController.updateGenus)
   .delete(auth(MODES.MANAGE), validate(genusValidation.deleteGenus), genusController.deleteGenus);
+
+router
+  .route('/:genusId/:eraser')
+  .delete(auth(MODES.MANAGE), validate(genusValidation.eraseGenusById), genusController.eraseGenus);
+
+router
+  .route('/restore/:genusId')
+  .patch(auth(MODES.GET), validate(genusValidation.restoreGenus), genusController.restoreGenus);
+
 router
   .route('/getByName/:genusName')
   .get(auth(MODES.GET), validate(genusValidation.getGenusByName), genusController.getGenusByName);

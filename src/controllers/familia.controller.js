@@ -33,6 +33,17 @@ const deleteFamilia = catchAsync(async (req, res) => {
   await familiaService.deleteFamiliaById(req.params.familiaId);
   res.status(httpStatus.NO_CONTENT).send();
 });
+
+const eraseFamilia = catchAsync(async (req, res) => {
+  await familiaService.eraseFamiliaById(req.params.familiaId, req.params.eraser);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+const restoreFamilia = catchAsync(async (req, res) => {
+  await familiaService.restoreFamiliaById(req.params.familiaId);
+  res.status(httpStatus.OK).send();
+});
+
 const getFamiliaByName = catchAsync(async (req, res) => {
   const familia = await familiaService.getFamiliaByName(req.params.familiaName);
   if (!familia) {
@@ -58,6 +69,8 @@ module.exports = {
   getFamilia,
   updateFamilia,
   deleteFamilia,
+  eraseFamilia,
+  restoreFamilia,
   getFamiliaByName,
   suggestFamiliaName,
 };

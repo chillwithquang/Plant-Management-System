@@ -4,18 +4,18 @@ const ApiError = require('../utils/ApiError');
 const { getSpeciesById } = require('./species.service');
 
 const createImage = async (data) => {
-  if (await Image.isImageTaken(data.Ten_KH)) {
+  if (await Image.isImageTaken(data.URL)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Image already taken');
   }
 
-  const species = await getSpeciesById(data.speciesId);
+  const species = await getSpeciesById(data.idLoai);
   if (!species) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Species not found');
   }
 
   const imageDoc = Image.create({
     ...data,
-    Loai: data.speciesId,
+    idLoai: data.idLoai,
   });
 
   return imageDoc;

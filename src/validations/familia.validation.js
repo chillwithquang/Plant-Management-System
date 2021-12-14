@@ -44,6 +44,20 @@ const deleteFamilia = {
     familiaId: Joi.string().custom(objectId),
   }),
 };
+
+const eraseFamiliaById = {
+  params: Joi.object().keys({
+    familiaId: Joi.string().custom(objectId),
+    eraser: Joi.string(),
+  }),
+};
+
+const restoreFamilia = {
+  params: Joi.object().keys({
+    familiaId: Joi.string().custom(objectId),
+  }),
+};
+
 const getFamiliaByName = {
   params: Joi.object().keys({
     familiaName: Joi.string(),
@@ -61,6 +75,8 @@ module.exports = {
   getFamilia,
   updateFamilia,
   deleteFamilia,
+  eraseFamiliaById,
+  restoreFamilia,
   getFamiliaByName,
   suggestFamiliaName,
 };

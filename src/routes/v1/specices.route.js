@@ -20,6 +20,15 @@ router
 router
   .route('/getByName/:speciesName')
   .get(auth(MODES.GET), validate(speciesValidation.getSpeciesByName), speciesController.getSpeciesByName);
+
+router
+  .route('/:speciesId/:eraser')
+  .delete(auth(MODES.MANAGE), validate(speciesValidation.eraseSpeciesById), speciesController.eraseSpecies);
+
+router
+  .route('/restore/:speciesId')
+  .patch(auth(MODES.GET), validate(speciesValidation.restoreSpecies), speciesController.restoreSpecies);
+
 router
   .route('/suggest/:name')
   .get(auth(MODES.GET), validate(speciesValidation.suggestSpeciesName), speciesController.suggestSpeciesName);

@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
+const historise = require('mongoose-historise');
 const { toJSON, paginate } = require('./plugins');
 
 const familiaSchema = mongoose.Schema(
@@ -28,6 +30,13 @@ const familiaSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 familiaSchema.plugin(toJSON);
 familiaSchema.plugin(paginate);
+familiaSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Familia' });
+familiaSchema.plugin(mongooseDelete, {
+  deletedAt: true,
+  deletedBy: true,
+  deletedByType: String,
+  overrideMethods: ['countDocuments', 'find'],
+});
 
 // eslint-disable-next-line camelcase
 familiaSchema.statics.isFamiliaTaken = async function (Ten_KH, excludeFamiliaId) {

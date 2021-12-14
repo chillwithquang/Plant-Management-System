@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
+const historise = require('mongoose-historise');
 const { toJSON, paginate } = require('./plugins');
 
 const classisSchema = mongoose.Schema(
@@ -28,6 +30,13 @@ const classisSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 classisSchema.plugin(toJSON);
 classisSchema.plugin(paginate);
+classisSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Classis' });
+classisSchema.plugin(mongooseDelete, {
+  deletedAt: true,
+  deletedBy: true,
+  deletedByType: String,
+  overrideMethods: ['countDocuments', 'find'],
+});
 
 // eslint-disable-next-line camelcase
 classisSchema.statics.isClassisTaken = async function (Ten_KH, excludeClassisId) {

@@ -30,13 +30,30 @@ const updateDivisioById = async (divisioId, updateBody) => {
   await divisio.save();
   return divisio;
 };
-
 const deleteDivisioById = async (divisioId) => {
   const divisio = await getDivisioById(divisioId);
   if (!divisio) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Divisio not found');
   }
   await divisio.remove();
+  return divisio;
+};
+
+const eraseDivisioById = async (divisioId, eraser) => {
+  const divisio = await getDivisioById(divisioId);
+  if (!divisio) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Divisio not found');
+  }
+  await divisio.delete(eraser);
+  return divisio;
+};
+
+const restoreDivisioById = async (divisioId) => {
+  const divisio = await getDivisioById(divisioId);
+  if (!divisio) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Divisio not found');
+  }
+  await divisio.restore();
   return divisio;
 };
 
@@ -54,6 +71,8 @@ module.exports = {
   getDivisioById,
   updateDivisioById,
   deleteDivisioById,
+  eraseDivisioById,
+  restoreDivisioById,
   getDivisioByName,
   suggestDivisioName,
 };

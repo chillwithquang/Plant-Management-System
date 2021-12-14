@@ -17,6 +17,15 @@ router
   .get(auth(MODES.GET), validate(classisValidation.getClassis), classisController.getClassis)
   .patch(auth(MODES.MANAGE), validate(classisValidation.updateClassis), classisController.updateClassis)
   .delete(auth(MODES.MANAGE), validate(classisValidation.deleteClassis), classisController.deleteClassis);
+
+router
+  .route('/:classisId/:eraser')
+  .delete(auth(MODES.MANAGE), validate(classisValidation.eraseClassisById), classisController.eraseClassis);
+
+router
+  .route('/restore/:classisId')
+  .patch(auth(MODES.GET), validate(classisValidation.restoreClassis), classisController.restoreClassis);
+
 router
   .route('/getByName/:classisName')
   .get(auth(MODES.GET), validate(classisValidation.getClassisByName), classisController.getClassisByName);

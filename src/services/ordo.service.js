@@ -57,6 +57,25 @@ const deleteOrdoById = async (ordoId) => {
   await ordo.remove();
   return ordo;
 };
+
+const eraseOrdoById = async (ordoId, eraser) => {
+  const ordo = await getOrdoById(ordoId);
+  if (!ordo) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Ordo not found');
+  }
+  await ordo.delete(eraser);
+  return ordo;
+};
+
+const restoreOrdoById = async (ordoId) => {
+  const ordo = await getOrdoById(ordoId);
+  if (!ordo) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Ordo not found');
+  }
+  await ordo.restore();
+  return ordo;
+};
+
 const getOrderByName = async (orderName) => {
   return Ordo.find({ Ten_KH: orderName });
 };
@@ -70,6 +89,8 @@ module.exports = {
   getOrdoById,
   updateOrdoById,
   deleteOrdoById,
+  eraseOrdoById,
+  restoreOrdoById,
   getOrderByName,
   suggestOrderName,
 };

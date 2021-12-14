@@ -61,6 +61,25 @@ const deleteSpeciesById = async (speciesId) => {
   await species.remove();
   return species;
 };
+
+const eraseSpeciesById = async (speciesId, eraser) => {
+  const species = await getSpeciesById(speciesId);
+  if (!species) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Species not found');
+  }
+  await species.delete(eraser);
+  return species;
+};
+
+const restoreSpeciesById = async (speciesId) => {
+  const species = await getSpeciesById(speciesId);
+  if (!species) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Species not found');
+  }
+  await species.restore();
+  return species;
+};
+
 const getSpeciesByName = async (speciesName) => {
   return Species.find({ Ten_KH: speciesName });
 };
@@ -109,6 +128,8 @@ module.exports = {
   getSpeciesById,
   updateSpeciesById,
   deleteSpeciesById,
+  eraseSpeciesById,
+  restoreSpeciesById,
   getSpeciesByName,
   suggestSpeciesName,
   getParentSpecies,

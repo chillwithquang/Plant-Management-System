@@ -45,6 +45,19 @@ const deleteClassis = {
   }),
 };
 
+const eraseClassisById = {
+  params: Joi.object().keys({
+    classisId: Joi.string().custom(objectId),
+    eraser: Joi.string(),
+  }),
+};
+
+const restoreClassis = {
+  params: Joi.object().keys({
+    classisId: Joi.string().custom(objectId),
+  }),
+};
+
 const getClassisByName = {
   params: Joi.object().keys({
     classisName: Joi.string(),
@@ -63,6 +76,8 @@ module.exports = {
   getClassis,
   updateClassis,
   deleteClassis,
+  eraseClassisById,
+  restoreClassis,
   getClassisByName,
   suggestClassisName,
 };

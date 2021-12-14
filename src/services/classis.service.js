@@ -58,6 +58,24 @@ const deleteClassisById = async (classisId) => {
   return classis;
 };
 
+const eraseClassisById = async (classisId, eraser) => {
+  const classis = await getClassisById(classisId);
+  if (!classis) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Classis not found');
+  }
+  await classis.delete(eraser);
+  return classis;
+};
+
+const restoreClassisById = async (classisId) => {
+  const classis = await getClassisById(classisId);
+  if (!classis) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Classis not found');
+  }
+  await classis.restore();
+  return classis;
+};
+
 const getClassisByName = async (divisioName) => {
   return Classis.find({ Ten_KH: divisioName });
 };
@@ -72,6 +90,8 @@ module.exports = {
   getClassisById,
   updateClassisById,
   deleteClassisById,
+  eraseClassisById,
+  restoreClassisById,
   getClassisByName,
   suggestClassisName,
 };

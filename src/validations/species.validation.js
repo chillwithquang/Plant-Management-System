@@ -5,13 +5,13 @@ const createSpecies = {
   body: Joi.object().keys({
     Ten_KH: Joi.string().required(),
     Ten_TV: Joi.string(),
-    Dac_Diem_Nhan_Dang: Joi.string(),
-    Sinh_Hoc_Sinh_Thai: Joi.string(),
-    Phan_Bo: Joi.string(),
-    Gia_Tri: Joi.string(),
-    Tinh_Trang: Joi.string(),
-    Bien_Phap_BV: Joi.string(),
-    Dang_Song: Joi.string(),
+    Dac_Diem_Nhan_Dang: Joi.string().optional().allow(''),
+    Sinh_Hoc_Sinh_Thai: Joi.string().optional().allow(''),
+    Phan_Bo: Joi.string().optional().allow(''),
+    Gia_Tri: Joi.string().optional().allow(''),
+    Tinh_Trang: Joi.string().optional().allow(''),
+    Bien_Phap_BV: Joi.string().optional().allow(''),
+    Dang_Song: Joi.string().optional().allow(''),
     idChi: Joi.string().custom(objectId).required(),
   }),
 };
@@ -56,6 +56,20 @@ const deleteSpecies = {
     speciesId: Joi.string().custom(objectId),
   }),
 };
+
+const eraseSpeciesById = {
+  params: Joi.object().keys({
+    speciesId: Joi.string().custom(objectId),
+    eraser: Joi.string(),
+  }),
+};
+
+const restoreSpecies = {
+  params: Joi.object().keys({
+    speciesId: Joi.string().custom(objectId),
+  }),
+};
+
 const getSpeciesByName = {
   params: Joi.object().keys({
     speciesName: Joi.string(),
@@ -79,6 +93,8 @@ module.exports = {
   getSpecies,
   updateSpecies,
   deleteSpecies,
+  eraseSpeciesById,
+  restoreSpecies,
   getSpeciesByName,
   suggestSpeciesName,
   getParentSpecies,

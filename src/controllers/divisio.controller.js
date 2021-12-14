@@ -11,7 +11,7 @@ const createDivisio = catchAsync(async (req, res) => {
 
 const getDivisios = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name']);
-  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page', 'deleted']);
   const result = await divisioService.queryDivisios(filter, options);
   res.send(result);
 });
@@ -32,6 +32,16 @@ const updateDivisio = catchAsync(async (req, res) => {
 const deleteDivisio = catchAsync(async (req, res) => {
   await divisioService.deleteDivisioById(req.params.divisioId);
   res.status(httpStatus.NO_CONTENT).send();
+});
+
+const eraseDivisio = catchAsync(async (req, res) => {
+  await divisioService.eraseDivisioById(req.params.divisioId, req.params.eraser);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+const restoreDivisio = catchAsync(async (req, res) => {
+  await divisioService.restoreDivisioById(req.params.divisioId);
+  res.status(httpStatus.OK).send();
 });
 
 const getDivisioByName = catchAsync(async (req, res) => {
@@ -60,6 +70,8 @@ module.exports = {
   getDivisio,
   updateDivisio,
   deleteDivisio,
+  eraseDivisio,
+  restoreDivisio,
   getDivisioByName,
   suggestDivisioName,
 };

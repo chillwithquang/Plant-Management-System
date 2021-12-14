@@ -44,6 +44,20 @@ const deleteOrdo = {
     ordoId: Joi.string().custom(objectId),
   }),
 };
+
+const eraseOrdoById = {
+  params: Joi.object().keys({
+    ordoId: Joi.string().custom(objectId),
+    eraser: Joi.string(),
+  }),
+};
+
+const restoreOrdo = {
+  params: Joi.object().keys({
+    ordoId: Joi.string().custom(objectId),
+  }),
+};
+
 const getOrderByName = {
   params: Joi.object().keys({
     orderName: Joi.string(),
@@ -61,6 +75,8 @@ module.exports = {
   getOrdo,
   updateOrdo,
   deleteOrdo,
+  eraseOrdoById,
+  restoreOrdo,
   getOrderByName,
   suggestOrderName,
 };

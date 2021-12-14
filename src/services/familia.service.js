@@ -57,6 +57,25 @@ const deleteFamiliaById = async (familiaId) => {
   await familia.remove();
   return familia;
 };
+
+const eraseFamiliaById = async (familiaId, eraser) => {
+  const familia = await getFamiliaById(familiaId);
+  if (!familia) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'familia not found');
+  }
+  await familia.delete(eraser);
+  return familia;
+};
+
+const restoreFamiliaById = async (familiaId) => {
+  const familia = await getFamiliaById(familiaId);
+  if (!familia) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'familia not found');
+  }
+  await familia.restore();
+  return familia;
+};
+
 const getFamiliaByName = async (familiaName) => {
   return Familia.find({ Ten_KH: familiaName });
 };
@@ -70,6 +89,8 @@ module.exports = {
   getFamiliaById,
   updateFamiliaById,
   deleteFamiliaById,
+  eraseFamiliaById,
+  restoreFamiliaById,
   getFamiliaByName,
   suggestFamiliaName,
 };

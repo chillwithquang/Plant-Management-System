@@ -33,6 +33,17 @@ const deleteOrdo = catchAsync(async (req, res) => {
   await ordoService.deleteOrdoById(req.params.ordoId);
   res.status(httpStatus.NO_CONTENT).send();
 });
+
+const eraseOrdo = catchAsync(async (req, res) => {
+  await ordoService.eraseOrdoById(req.params.ordoId, req.params.eraser);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+const restoreOrdo = catchAsync(async (req, res) => {
+  await ordoService.restoreOrdoById(req.params.ordoId);
+  res.status(httpStatus.OK).send();
+});
+
 const getOrderByName = catchAsync(async (req, res) => {
   const order = await ordoService.getOrderByName(req.params.orderName);
   if (!order) {
@@ -58,6 +69,8 @@ module.exports = {
   getOrdo,
   updateOrdo,
   deleteOrdo,
+  eraseOrdo,
+  restoreOrdo,
   getOrderByName,
   suggestOrderName,
 };

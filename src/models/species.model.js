@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
+const historise = require('mongoose-historise');
 const { toJSON, paginate } = require('./plugins');
 
 const speciesSchema = mongoose.Schema(
@@ -46,7 +48,13 @@ const speciesSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 speciesSchema.plugin(toJSON);
 speciesSchema.plugin(paginate);
-
+speciesSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Species' });
+speciesSchema.plugin(mongooseDelete, {
+  deletedAt: true,
+  deletedBy: true,
+  deletedByType: String,
+  overrideMethods: ['countDocuments', 'find'],
+});
 // eslint-disable-next-line camelcase
 speciesSchema.statics.isSpeciesTaken = async function (Ten_KH, excludeSpeciesId) {
   const speciesExist = await this.findOne({ Ten_KH, _id: { $ne: excludeSpeciesId } });

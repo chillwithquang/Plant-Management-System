@@ -34,6 +34,16 @@ const deleteClassis = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const eraseClassis = catchAsync(async (req, res) => {
+  await classisService.eraseClassisById(req.params.classisId, req.params.eraser);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+const restoreClassis = catchAsync(async (req, res) => {
+  await classisService.restoreClassisById(req.params.classisId);
+  res.status(httpStatus.OK).send();
+});
+
 const getClassisByName = catchAsync(async (req, res) => {
   const classis = await classisService.getClassisByName(req.params.classisName);
   if (!classis) {
@@ -60,6 +70,8 @@ module.exports = {
   getClassis,
   updateClassis,
   deleteClassis,
+  eraseClassis,
+  restoreClassis,
   getClassisByName,
   suggestClassisName,
 };

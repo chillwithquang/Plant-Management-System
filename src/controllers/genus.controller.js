@@ -33,6 +33,17 @@ const deleteGenus = catchAsync(async (req, res) => {
   await genusService.deleteGenusById(req.params.genusId);
   res.status(httpStatus.NO_CONTENT).send();
 });
+
+const eraseGenus = catchAsync(async (req, res) => {
+  await genusService.eraseGenusById(req.params.genusId, req.params.eraser);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+const restoreGenus = catchAsync(async (req, res) => {
+  await genusService.restoreGenusById(req.params.genusId);
+  res.status(httpStatus.OK).send();
+});
+
 const getGenusByName = catchAsync(async (req, res) => {
   const genus = await genusService.getGenusByName(req.params.genusName);
   if (!genus) {
@@ -58,6 +69,8 @@ module.exports = {
   getGenus,
   updateGenus,
   deleteGenus,
+  eraseGenus,
+  restoreGenus,
   getGenusByName,
   suggestGenusName,
 };

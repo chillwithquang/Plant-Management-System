@@ -11,7 +11,7 @@ const createFamilia = catchAsync(async (req, res) => {
 
 const getFamilias = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name']);
-  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page', 'deleted']);
   const result = await familiaService.queryFamilias(filter, options);
   res.send(result);
 });
@@ -63,6 +63,24 @@ const suggestFamiliaName = catchAsync(async (req, res) => {
   }
   res.send(suggestion.filter((value) => value.includes(req.params.name)));
 });
+
+const getChildOfOrdo = catchAsync(async (req, res) => {
+  const children = await familiaService.getChildOfOrdo(req.params.ordoName);
+  if (!children || !children.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Ordo has no children');
+  }
+  const childrenName = [];
+  const total = children.length;
+  for (let i = 0; i < total; i += 1) {
+    childrenName.push(children[i].Ten_KH);
+  }
+  const result = {
+    total,
+    children: [...new Set(childrenName)],
+  };
+  res.send(result);
+});
+
 module.exports = {
   createFamilia,
   getFamilias,
@@ -73,4 +91,5 @@ module.exports = {
   restoreFamilia,
   getFamiliaByName,
   suggestFamiliaName,
+  getChildOfOrdo,
 };

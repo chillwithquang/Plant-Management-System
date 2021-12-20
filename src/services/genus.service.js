@@ -2,6 +2,7 @@ const httpStatus = require('http-status');
 const { Genus } = require('../models');
 const ApiError = require('../utils/ApiError');
 const { getFamiliaById } = require('./familia.service');
+const { getFamiliaByName } = require('./familia.service');
 
 const createGenus = async (data) => {
   if (await Genus.isGenusTaken(data.Ten_KH)) {
@@ -83,6 +84,16 @@ const getGenusByName = async (genusName) => {
 const suggestGenusName = async () => {
   return Genus.find({});
 };
+
+const getChildOfFamilia = async (familiaName) => {
+  const familia = await getFamiliaByName(familiaName);
+  if (!familia || !familia.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Familia not found');
+  }
+  const idFamilia = familia[0].id;
+  return Genus.find({ idHo: idFamilia });
+};
+
 module.exports = {
   createGenus,
   queryGenuss,
@@ -93,4 +104,5 @@ module.exports = {
   restoreGenusById,
   getGenusByName,
   suggestGenusName,
+  getChildOfFamilia,
 };

@@ -6,6 +6,7 @@ const { getFamiliaById } = require('./familia.service');
 const { getOrdoById } = require('./ordo.service');
 const { getClassisById } = require('./classis.service');
 const { getDivisioById } = require('./divisio.service');
+const { getGenusByName } = require('./genus.service');
 
 const createSpecies = async (data) => {
   if (await Species.isSpeciesTaken(data.Ten_KH)) {
@@ -122,6 +123,16 @@ const getParentSpecies = async (genusId) => {
   };
   return parent;
 };
+
+const getChildOfGenus = async (genusName) => {
+  const genus = await getGenusByName(genusName);
+  if (!genus || !genus.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Genus not found');
+  }
+  const idGenus = genus[0].id;
+  return Species.find({ idChi: idGenus });
+};
+
 module.exports = {
   createSpecies,
   querySpeciess,
@@ -133,4 +144,5 @@ module.exports = {
   getSpeciesByName,
   suggestSpeciesName,
   getParentSpecies,
+  getChildOfGenus,
 };

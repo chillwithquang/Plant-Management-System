@@ -33,4 +33,8 @@ router
 router
   .route('/suggest/:name')
   .get(auth(MODES.GET), validate(classisValidation.suggestClassisName), classisController.suggestClassisName);
+
+router
+  .route('/getChildOfDivisio/:divisioName')
+  .get(auth(MODES.GET), validate(classisValidation.getChildOfDivisio), classisController.getChildOfDivisio);
 module.exports = router;

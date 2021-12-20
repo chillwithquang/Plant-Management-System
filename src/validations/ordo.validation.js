@@ -16,6 +16,7 @@ const getOrdos = {
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
+    deleted: Joi.number().integer(),
   }),
 };
 
@@ -69,6 +70,13 @@ const suggestOrderName = {
     name: Joi.string(),
   }),
 };
+
+const getChildOfClassis = {
+  params: Joi.object().keys({
+    classisName: Joi.string(),
+  }),
+};
+
 module.exports = {
   createOrdo,
   getOrdos,
@@ -79,4 +87,5 @@ module.exports = {
   restoreOrdo,
   getOrderByName,
   suggestOrderName,
+  getChildOfClassis,
 };

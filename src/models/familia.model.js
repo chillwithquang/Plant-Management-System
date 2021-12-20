@@ -30,7 +30,7 @@ const familiaSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 familiaSchema.plugin(toJSON);
 familiaSchema.plugin(paginate);
-familiaSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Familia' });
+familiaSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Familia', limit: 3 });
 familiaSchema.plugin(mongooseDelete, {
   deletedAt: true,
   deletedBy: true,

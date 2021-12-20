@@ -29,4 +29,8 @@ router
 router
   .route('/suggest/:name')
   .get(auth(MODES.GET), validate(ordoValidation.suggestOrderName), ordoController.suggestOrderName);
+
+router
+  .route('/getChildOfClassis/:classisName')
+  .get(auth(MODES.GET), validate(ordoValidation.getChildOfClassis), ordoController.getChildOfClassis);
 module.exports = router;

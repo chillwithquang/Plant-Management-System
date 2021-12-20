@@ -16,6 +16,7 @@ const getFamilias = {
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
+    deleted: Joi.number().integer(),
   }),
 };
 
@@ -69,6 +70,13 @@ const suggestFamiliaName = {
     name: Joi.string(),
   }),
 };
+
+const getChildOfOrdo = {
+  params: Joi.object().keys({
+    ordoName: Joi.string(),
+  }),
+};
+
 module.exports = {
   createFamilia,
   getFamilias,
@@ -79,4 +87,5 @@ module.exports = {
   restoreFamilia,
   getFamiliaByName,
   suggestFamiliaName,
+  getChildOfOrdo,
 };

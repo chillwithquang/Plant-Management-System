@@ -32,4 +32,8 @@ router
 router
   .route('/suggest/:name')
   .get(auth(MODES.GET), validate(familiaValidation.suggestFamiliaName), familiaController.suggestFamiliaName);
+
+router
+  .route('/getChildOfOrdo/:ordoName')
+  .get(auth(MODES.GET), validate(familiaValidation.getChildOfOrdo), familiaController.getChildOfOrdo);
 module.exports = router;

@@ -30,7 +30,7 @@ const classisSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 classisSchema.plugin(toJSON);
 classisSchema.plugin(paginate);
-classisSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Classis' });
+classisSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Classis', limit: 3 });
 classisSchema.plugin(mongooseDelete, {
   deletedAt: true,
   deletedBy: true,

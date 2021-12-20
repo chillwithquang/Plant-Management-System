@@ -48,7 +48,7 @@ const speciesSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 speciesSchema.plugin(toJSON);
 speciesSchema.plugin(paginate);
-speciesSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Species' });
+speciesSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Species', limit: 3 });
 speciesSchema.plugin(mongooseDelete, {
   deletedAt: true,
   deletedBy: true,

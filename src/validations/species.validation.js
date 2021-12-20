@@ -22,6 +22,7 @@ const getSpeciess = {
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
+    deleted: Joi.number().integer(),
   }),
 };
 
@@ -87,6 +88,13 @@ const getParentSpecies = {
     genusId: Joi.string().custom(objectId),
   }),
 };
+
+const getChildOfGenus = {
+  params: Joi.object().keys({
+    genusName: Joi.string(),
+  }),
+};
+
 module.exports = {
   createSpecies,
   getSpeciess,
@@ -98,4 +106,5 @@ module.exports = {
   getSpeciesByName,
   suggestSpeciesName,
   getParentSpecies,
+  getChildOfGenus,
 };

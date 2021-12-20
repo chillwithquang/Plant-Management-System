@@ -16,6 +16,7 @@ const getClassiss = {
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
+    deleted: Joi.number().integer(),
   }),
 };
 
@@ -70,6 +71,12 @@ const suggestClassisName = {
   }),
 };
 
+const getChildOfDivisio = {
+  params: Joi.object().keys({
+    divisioName: Joi.string(),
+  }),
+};
+
 module.exports = {
   createClassis,
   getClassiss,
@@ -80,4 +87,5 @@ module.exports = {
   restoreClassis,
   getClassisByName,
   suggestClassisName,
+  getChildOfDivisio,
 };

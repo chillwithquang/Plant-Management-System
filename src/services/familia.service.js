@@ -2,8 +2,9 @@ const httpStatus = require('http-status');
 const { Familia } = require('../models');
 const ApiError = require('../utils/ApiError');
 const { getOrdoById } = require('./ordo.service');
+const { getOrderByName } = require('./ordo.service');
 
-const createFamilia = async (data) => {
+async function createFamilia(data) {
   if (await Familia.isFamiliaTaken(data.Ten_KH)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Familia already taken');
   }
@@ -19,7 +20,7 @@ const createFamilia = async (data) => {
   });
 
   return familiaDoc;
-};
+}
 
 const queryFamilias = async (filter, options) => {
   const familias = await Familia.paginate(filter, options);
@@ -83,6 +84,16 @@ const getFamiliaByName = async (familiaName) => {
 const suggestFamiliaName = async () => {
   return Familia.find({});
 };
+
+const getChildOfOrdo = async (ordoName) => {
+  const ordo = await getOrderByName(ordoName);
+  if (!ordo || !ordo.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Ordo not found');
+  }
+  const idOrdo = ordo[0].id;
+  return Familia.find({ idBo: idOrdo });
+};
+
 module.exports = {
   createFamilia,
   queryFamilias,
@@ -93,4 +104,5 @@ module.exports = {
   restoreFamiliaById,
   getFamiliaByName,
   suggestFamiliaName,
+  getChildOfOrdo,
 };

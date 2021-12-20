@@ -16,6 +16,7 @@ const getGenuss = {
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
+    deleted: Joi.number().integer(),
   }),
 };
 
@@ -69,6 +70,13 @@ const suggestGenusName = {
     name: Joi.string(),
   }),
 };
+
+const getChildOfFamilia = {
+  params: Joi.object().keys({
+    familiaName: Joi.string(),
+  }),
+};
+
 module.exports = {
   createGenus,
   getGenuss,
@@ -79,4 +87,5 @@ module.exports = {
   restoreGenus,
   getGenusByName,
   suggestGenusName,
+  getChildOfFamilia,
 };

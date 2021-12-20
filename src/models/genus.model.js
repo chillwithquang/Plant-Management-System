@@ -30,7 +30,7 @@ const genusSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 genusSchema.plugin(toJSON);
 genusSchema.plugin(paginate);
-genusSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Genus' });
+genusSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Genus', limit: 3 });
 genusSchema.plugin(mongooseDelete, {
   deletedAt: true,
   deletedBy: true,

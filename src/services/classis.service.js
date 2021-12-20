@@ -2,8 +2,9 @@ const httpStatus = require('http-status');
 const { Classis } = require('../models');
 const ApiError = require('../utils/ApiError');
 const { getDivisioById } = require('./divisio.service');
+const { getDivisioByName } = require('./divisio.service');
 
-const createClassis = async (data) => {
+async function createClassis(data) {
   if (await Classis.isClassisTaken(data.Ten_KH)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Classis already taken');
   }
@@ -19,7 +20,7 @@ const createClassis = async (data) => {
   });
 
   return classisDoc;
-};
+}
 
 const queryClassiss = async (filter, options) => {
   const classiss = await Classis.paginate(filter, options);
@@ -84,6 +85,15 @@ const suggestClassisName = async () => {
   return Classis.find({});
 };
 
+const getChildOfDivisio = async (divisioName) => {
+  const divisio = await getDivisioByName(divisioName);
+  if (!divisio || !divisio.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Divisio not found');
+  }
+  const idDivisio = divisio[0].id;
+  return Classis.find({ idNganh: idDivisio });
+};
+
 module.exports = {
   createClassis,
   queryClassiss,
@@ -94,4 +104,5 @@ module.exports = {
   restoreClassisById,
   getClassisByName,
   suggestClassisName,
+  getChildOfDivisio,
 };

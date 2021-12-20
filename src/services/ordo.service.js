@@ -2,6 +2,7 @@ const httpStatus = require('http-status');
 const { Ordo } = require('../models');
 const ApiError = require('../utils/ApiError');
 const { getClassisById } = require('./classis.service');
+const { getClassisByName } = require('./classis.service');
 
 const createOrdo = async (data) => {
   if (await Ordo.isOrdoTaken(data.Ten_KH)) {
@@ -83,6 +84,16 @@ const getOrderByName = async (orderName) => {
 const suggestOrderName = async () => {
   return Ordo.find({});
 };
+
+const getChildOfClassis = async (classisName) => {
+  const classis = await getClassisByName(classisName);
+  if (!classis || !classis.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Classis not found');
+  }
+  const idClassis = classis[0].id;
+  return Ordo.find({ idLop: idClassis });
+};
+
 module.exports = {
   createOrdo,
   queryOrdos,
@@ -93,4 +104,5 @@ module.exports = {
   restoreOrdoById,
   getOrderByName,
   suggestOrderName,
+  getChildOfClassis,
 };

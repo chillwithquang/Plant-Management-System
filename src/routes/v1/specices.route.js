@@ -30,6 +30,9 @@ router
   .patch(auth(MODES.GET), validate(speciesValidation.restoreSpecies), speciesController.restoreSpecies);
 
 router
+  .route('/getChildOfGenus/:genusName')
+  .get(auth(MODES.GET), validate(speciesValidation.getChildOfGenus), speciesController.getChildOfGenus);
+router
   .route('/suggest/:name')
   .get(auth(MODES.GET), validate(speciesValidation.suggestSpeciesName), speciesController.suggestSpeciesName);
 router

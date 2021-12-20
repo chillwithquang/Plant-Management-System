@@ -11,7 +11,7 @@ const createClassis = catchAsync(async (req, res) => {
 
 const getClassiss = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name']);
-  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page', 'deleted']);
   const result = await classisService.queryClassiss(filter, options);
   res.send(result);
 });
@@ -64,6 +64,23 @@ const suggestClassisName = catchAsync(async (req, res) => {
   res.send(suggestion.filter((value) => value.includes(req.params.name)));
 });
 
+const getChildOfDivisio = catchAsync(async (req, res) => {
+  const children = await classisService.getChildOfDivisio(req.params.divisioName);
+  if (!children || !children.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Divisio has no children');
+  }
+  const childrenName = [];
+  const total = children.length;
+  for (let i = 0; i < total; i += 1) {
+    childrenName.push(children[i].Ten_KH);
+  }
+  const result = {
+    total,
+    children: [...new Set(childrenName)],
+  };
+  res.send(result);
+});
+
 module.exports = {
   createClassis,
   getClassiss,
@@ -74,4 +91,5 @@ module.exports = {
   restoreClassis,
   getClassisByName,
   suggestClassisName,
+  getChildOfDivisio,
 };

@@ -11,7 +11,7 @@ const createGenus = catchAsync(async (req, res) => {
 
 const getGenuss = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name']);
-  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page', 'deleted']);
   const result = await genusService.queryGenuss(filter, options);
   res.send(result);
 });
@@ -63,6 +63,24 @@ const suggestGenusName = catchAsync(async (req, res) => {
   }
   res.send(suggestion.filter((value) => value.includes(req.params.name)));
 });
+
+const getChildOfFamilia = catchAsync(async (req, res) => {
+  const children = await genusService.getChildOfFamilia(req.params.familiaName);
+  if (!children || !children.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Familia has no children');
+  }
+  const childrenName = [];
+  const total = children.length;
+  for (let i = 0; i < total; i += 1) {
+    childrenName.push(children[i].Ten_KH);
+  }
+  const result = {
+    total,
+    children: [...new Set(childrenName)],
+  };
+  res.send(result);
+});
+
 module.exports = {
   createGenus,
   getGenuss,
@@ -73,4 +91,5 @@ module.exports = {
   restoreGenus,
   getGenusByName,
   suggestGenusName,
+  getChildOfFamilia,
 };

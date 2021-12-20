@@ -25,7 +25,7 @@ const divisioSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 divisioSchema.plugin(toJSON);
 divisioSchema.plugin(paginate);
-divisioSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Divisio' });
+divisioSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Divisio', limit: 3 });
 divisioSchema.plugin(mongooseDelete, {
   deletedAt: true,
   deletedBy: true,

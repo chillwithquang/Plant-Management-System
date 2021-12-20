@@ -30,7 +30,7 @@ const ordoSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 ordoSchema.plugin(toJSON);
 ordoSchema.plugin(paginate);
-ordoSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Ordo' });
+ordoSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Ordo', limit: 3 });
 ordoSchema.plugin(mongooseDelete, {
   deletedAt: true,
   deletedBy: true,

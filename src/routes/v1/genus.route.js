@@ -32,4 +32,8 @@ router
 router
   .route('/suggest/:name')
   .get(auth(MODES.GET), validate(genusValidation.suggestGenusName), genusController.suggestGenusName);
+
+router
+  .route('/getChildOfFamilia/:familiaName')
+  .get(auth(MODES.GET), validate(genusValidation.getChildOfFamilia), genusController.getChildOfFamilia);
 module.exports = router;

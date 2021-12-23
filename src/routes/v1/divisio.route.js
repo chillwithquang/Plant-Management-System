@@ -32,4 +32,8 @@ router
 router
   .route('/suggest/:name')
   .get(auth(MODES.GET), validate(divisioValidation.suggestDivisioName), divisioController.suggestDivisioName);
+
+router
+  .route('/getHistoryDivisio/:divisioId')
+  .get(auth(MODES.GET), validate(divisioValidation.getDivisio), divisioController.getHistoryDivisio);
 module.exports = router;

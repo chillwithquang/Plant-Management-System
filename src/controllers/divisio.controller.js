@@ -64,6 +64,32 @@ const suggestDivisioName = catchAsync(async (req, res) => {
   res.send(suggestion.filter((value) => value.includes(req.params.name)));
 });
 
+const getHistoryDivisio = catchAsync(async (req, res) => {
+  const divisio = await divisioService.getDivisioById(req.params.divisioId);
+  if (!divisio) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Divisio not found');
+  }
+  const historise = divisio.history;
+  for (let i = 0; i < historise.length; i += 1) {
+    const modification = historise[i].modifications;
+    for (let j = 0; j < modification.length; j += 1) {
+      if (
+        modification[j].field === 'deleted' ||
+        modification[j].field === 'deletedAt' ||
+        modification[j].field === 'deletedBy'
+      ) {
+        modification.splice(j, 1);
+        j -= 1;
+      }
+    }
+    if (modification.length === 0) {
+      historise.splice(i, 1);
+      i -= 1;
+    }
+  }
+  res.send(historise);
+});
+
 module.exports = {
   createDivisio,
   getDivisios,
@@ -74,4 +100,5 @@ module.exports = {
   restoreDivisio,
   getDivisioByName,
   suggestDivisioName,
+  getHistoryDivisio,
 };

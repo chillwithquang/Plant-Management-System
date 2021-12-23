@@ -38,4 +38,9 @@ router
 router
   .route('/getParentByGenusId/:genusId')
   .get(auth(MODES.GET), validate(speciesValidation.getParentSpecies), speciesController.getParentSpecies);
+
+router
+  .route('/getHistorySpecies/:speciesId')
+  .get(auth(MODES.GET), validate(speciesValidation.getSpecies), speciesController.getHistorySpecies);
+
 module.exports = router;

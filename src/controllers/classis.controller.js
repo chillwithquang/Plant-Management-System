@@ -81,6 +81,32 @@ const getChildOfDivisio = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getHistoryClassis = catchAsync(async (req, res) => {
+  const classis = await classisService.getClassisById(req.params.classisId);
+  if (!classis) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'classis not found');
+  }
+  const historise = classis.history;
+  for (let i = 0; i < historise.length; i += 1) {
+    const modification = historise[i].modifications;
+    for (let j = 0; j < modification.length; j += 1) {
+      if (
+        modification[j].field === 'deleted' ||
+        modification[j].field === 'deletedAt' ||
+        modification[j].field === 'deletedBy'
+      ) {
+        modification.splice(j, 1);
+        j -= 1;
+      }
+    }
+    if (modification.length === 0) {
+      historise.splice(i, 1);
+      i -= 1;
+    }
+  }
+  res.send(historise);
+});
+
 module.exports = {
   createClassis,
   getClassiss,
@@ -92,4 +118,5 @@ module.exports = {
   getClassisByName,
   suggestClassisName,
   getChildOfDivisio,
+  getHistoryClassis,
 };

@@ -36,4 +36,9 @@ router
 router
   .route('/getChildOfOrdo/:ordoName')
   .get(auth(MODES.GET), validate(familiaValidation.getChildOfOrdo), familiaController.getChildOfOrdo);
+
+router
+  .route('/getHistoryFamilia/:familiaId')
+  .get(auth(MODES.GET), validate(familiaValidation.getFamilia), familiaController.getHistoryFamilia);
+
 module.exports = router;

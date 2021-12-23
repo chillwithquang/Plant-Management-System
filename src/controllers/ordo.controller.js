@@ -81,6 +81,32 @@ const getChildOfClassis = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getHistoryOrdo = catchAsync(async (req, res) => {
+  const ordo = await ordoService.getOrdoById(req.params.ordoId);
+  if (!ordo) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'ordo not found');
+  }
+  const historise = ordo.history;
+  for (let i = 0; i < historise.length; i += 1) {
+    const modification = historise[i].modifications;
+    for (let j = 0; j < modification.length; j += 1) {
+      if (
+        modification[j].field === 'deleted' ||
+        modification[j].field === 'deletedAt' ||
+        modification[j].field === 'deletedBy'
+      ) {
+        modification.splice(j, 1);
+        j -= 1;
+      }
+    }
+    if (modification.length === 0) {
+      historise.splice(i, 1);
+      i -= 1;
+    }
+  }
+  res.send(historise);
+});
+
 module.exports = {
   createOrdo,
   getOrdos,
@@ -92,4 +118,5 @@ module.exports = {
   getOrderByName,
   suggestOrderName,
   getChildOfClassis,
+  getHistoryOrdo,
 };

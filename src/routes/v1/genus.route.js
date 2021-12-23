@@ -36,4 +36,8 @@ router
 router
   .route('/getChildOfFamilia/:familiaName')
   .get(auth(MODES.GET), validate(genusValidation.getChildOfFamilia), genusController.getChildOfFamilia);
+
+router
+  .route('/getHistoryGenus/:genusId')
+  .get(auth(MODES.GET), validate(genusValidation.getGenus), genusController.getHistoryGenus);
 module.exports = router;

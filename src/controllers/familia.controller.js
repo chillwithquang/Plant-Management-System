@@ -81,6 +81,32 @@ const getChildOfOrdo = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getHistoryFamilia = catchAsync(async (req, res) => {
+  const familia = await familiaService.getFamiliaById(req.params.familiaId);
+  if (!familia) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Familia not found');
+  }
+  const historise = familia.history;
+  for (let i = 0; i < historise.length; i += 1) {
+    const modification = historise[i].modifications;
+    for (let j = 0; j < modification.length; j += 1) {
+      if (
+        modification[j].field === 'deleted' ||
+        modification[j].field === 'deletedAt' ||
+        modification[j].field === 'deletedBy'
+      ) {
+        modification.splice(j, 1);
+        j -= 1;
+      }
+    }
+    if (modification.length === 0) {
+      historise.splice(i, 1);
+      i -= 1;
+    }
+  }
+  res.send(historise);
+});
+
 module.exports = {
   createFamilia,
   getFamilias,
@@ -92,4 +118,5 @@ module.exports = {
   getFamiliaByName,
   suggestFamiliaName,
   getChildOfOrdo,
+  getHistoryFamilia,
 };

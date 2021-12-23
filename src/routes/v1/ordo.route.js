@@ -33,4 +33,8 @@ router
 router
   .route('/getChildOfClassis/:classisName')
   .get(auth(MODES.GET), validate(ordoValidation.getChildOfClassis), ordoController.getChildOfClassis);
+
+router
+  .route('/getHistoryOrdo/:ordoId')
+  .get(auth(MODES.GET), validate(ordoValidation.getOrdo), ordoController.getHistoryOrdo);
 module.exports = router;

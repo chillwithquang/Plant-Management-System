@@ -89,6 +89,32 @@ const getChildOfGenus = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getHistorySpecies = catchAsync(async (req, res) => {
+  const species = await speciesService.getSpeciesById(req.params.speciesId);
+  if (!species) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Species not found');
+  }
+  const historise = species.history;
+  for (let i = 0; i < historise.length; i += 1) {
+    const modification = historise[i].modifications;
+    for (let j = 0; j < modification.length; j += 1) {
+      if (
+        modification[j].field === 'deleted' ||
+        modification[j].field === 'deletedAt' ||
+        modification[j].field === 'deletedBy'
+      ) {
+        modification.splice(j, 1);
+        j -= 1;
+      }
+    }
+    if (modification.length === 0) {
+      historise.splice(i, 1);
+      i -= 1;
+    }
+  }
+  res.send(historise);
+});
+
 module.exports = {
   createSpecies,
   getSpeciess,
@@ -101,4 +127,5 @@ module.exports = {
   suggestSpeciesName,
   getParentSpecies,
   getChildOfGenus,
+  getHistorySpecies,
 };

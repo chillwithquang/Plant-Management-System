@@ -37,4 +37,8 @@ router
 router
   .route('/getChildOfDivisio/:divisioName')
   .get(auth(MODES.GET), validate(classisValidation.getChildOfDivisio), classisController.getChildOfDivisio);
+
+router
+  .route('/getHistoryClassis/:classisId')
+  .get(auth(MODES.GET), validate(classisValidation.getClassis), classisController.getHistoryClassis);
 module.exports = router;

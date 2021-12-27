@@ -69,6 +69,12 @@ const suggestDivisioName = {
   }),
 };
 
+const searchDivisio = {
+  params: Joi.object().keys({
+    divisioName: Joi.string(),
+  }),
+};
+
 module.exports = {
   createDivisio,
   getDivisios,
@@ -79,4 +85,5 @@ module.exports = {
   restoreDivisio,
   getDivisioByName,
   suggestDivisioName,
+  searchDivisio,
 };

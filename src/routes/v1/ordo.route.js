@@ -37,4 +37,8 @@ router
 router
   .route('/getHistoryOrdo/:ordoId')
   .get(auth(MODES.GET), validate(ordoValidation.getOrdo), ordoController.getHistoryOrdo);
+
+router
+  .route('/searchOrder/:orderName')
+  .get(auth(MODES.GET), validate(ordoValidation.searchOrder), ordoController.searchOrder);
 module.exports = router;

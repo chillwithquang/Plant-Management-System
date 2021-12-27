@@ -107,6 +107,18 @@ const getHistoryFamilia = catchAsync(async (req, res) => {
   res.send(historise);
 });
 
+const searchFamilia = catchAsync(async (req, res) => {
+  const familias = await familiaService.searchFamilia(req.params.familiaName);
+  if (familias.length === 0) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Familia not found');
+  }
+  const result = {
+    total: familias.length,
+    familias,
+  };
+  res.send(result);
+});
+
 module.exports = {
   createFamilia,
   getFamilias,
@@ -119,4 +131,5 @@ module.exports = {
   suggestFamiliaName,
   getChildOfOrdo,
   getHistoryFamilia,
+  searchFamilia,
 };

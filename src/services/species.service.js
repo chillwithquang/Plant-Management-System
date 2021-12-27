@@ -133,6 +133,10 @@ const getChildOfGenus = async (genusName) => {
   return Species.find({ idChi: idGenus });
 };
 
+const searchSpecies = async (speciesName) => {
+  return Species.find({ Ten_KH: { $regex: speciesName } });
+};
+
 module.exports = {
   createSpecies,
   querySpeciess,
@@ -145,4 +149,5 @@ module.exports = {
   suggestSpeciesName,
   getParentSpecies,
   getChildOfGenus,
+  searchSpecies,
 };

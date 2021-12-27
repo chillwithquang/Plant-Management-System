@@ -107,6 +107,18 @@ const getHistoryGenus = catchAsync(async (req, res) => {
   res.send(historise);
 });
 
+const searchGenus = catchAsync(async (req, res) => {
+  const genuss = await genusService.searchGenus(req.params.genusName);
+  if (genuss.length === 0) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'genus not found');
+  }
+  const result = {
+    total: genuss.length,
+    genuss,
+  };
+  res.send(result);
+});
+
 module.exports = {
   createGenus,
   getGenuss,
@@ -119,4 +131,5 @@ module.exports = {
   suggestGenusName,
   getChildOfFamilia,
   getHistoryGenus,
+  searchGenus,
 };

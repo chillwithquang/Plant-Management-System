@@ -77,6 +77,12 @@ const getChildOfClassis = {
   }),
 };
 
+const searchOrder = {
+  params: Joi.object().keys({
+    orderName: Joi.string(),
+  }),
+};
+
 module.exports = {
   createOrdo,
   getOrdos,
@@ -88,4 +94,5 @@ module.exports = {
   getOrderByName,
   suggestOrderName,
   getChildOfClassis,
+  searchOrder,
 };

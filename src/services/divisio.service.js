@@ -65,6 +65,10 @@ const suggestDivisioName = async () => {
   return Divisio.find({});
 };
 
+const searchDivisio = async (divisioName) => {
+  return Divisio.find({ Ten_KH: { $regex: divisioName } });
+};
+
 module.exports = {
   createDivisio,
   queryDivisios,
@@ -75,4 +79,5 @@ module.exports = {
   restoreDivisioById,
   getDivisioByName,
   suggestDivisioName,
+  searchDivisio,
 };

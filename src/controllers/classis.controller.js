@@ -107,6 +107,18 @@ const getHistoryClassis = catchAsync(async (req, res) => {
   res.send(historise);
 });
 
+const searchClassis = catchAsync(async (req, res) => {
+  const classiss = await classisService.searchClassis(req.params.classisName);
+  if (classiss.length === 0) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Classis not found');
+  }
+  const result = {
+    total: classiss.length,
+    classiss,
+  };
+  res.send(result);
+});
+
 module.exports = {
   createClassis,
   getClassiss,
@@ -119,4 +131,5 @@ module.exports = {
   suggestClassisName,
   getChildOfDivisio,
   getHistoryClassis,
+  searchClassis,
 };

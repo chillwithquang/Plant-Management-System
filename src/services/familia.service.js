@@ -94,6 +94,10 @@ const getChildOfOrdo = async (ordoName) => {
   return Familia.find({ idBo: idOrdo });
 };
 
+const searchFamilia = async (familiaName) => {
+  return Familia.find({ Ten_KH: { $regex: familiaName } });
+};
+
 module.exports = {
   createFamilia,
   queryFamilias,
@@ -105,4 +109,5 @@ module.exports = {
   getFamiliaByName,
   suggestFamiliaName,
   getChildOfOrdo,
+  searchFamilia,
 };

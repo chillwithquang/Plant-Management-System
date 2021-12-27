@@ -94,6 +94,10 @@ const getChildOfFamilia = async (familiaName) => {
   return Genus.find({ idHo: idFamilia });
 };
 
+const searchGenus = async (genusName) => {
+  return Genus.find({ Ten_KH: { $regex: genusName } });
+};
+
 module.exports = {
   createGenus,
   queryGenuss,
@@ -105,4 +109,5 @@ module.exports = {
   getGenusByName,
   suggestGenusName,
   getChildOfFamilia,
+  searchGenus,
 };

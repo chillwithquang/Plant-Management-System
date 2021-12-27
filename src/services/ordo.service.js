@@ -94,6 +94,10 @@ const getChildOfClassis = async (classisName) => {
   return Ordo.find({ idLop: idClassis });
 };
 
+const searchOrder = async (orderName) => {
+  return Ordo.find({ Ten_KH: { $regex: orderName } });
+};
+
 module.exports = {
   createOrdo,
   queryOrdos,
@@ -105,4 +109,5 @@ module.exports = {
   getOrderByName,
   suggestOrderName,
   getChildOfClassis,
+  searchOrder,
 };

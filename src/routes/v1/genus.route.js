@@ -40,4 +40,8 @@ router
 router
   .route('/getHistoryGenus/:genusId')
   .get(auth(MODES.GET), validate(genusValidation.getGenus), genusController.getHistoryGenus);
+
+router
+  .route('/searchGenus/:genusName')
+  .get(auth(MODES.GET), validate(genusValidation.searchGenus), genusController.searchGenus);
 module.exports = router;

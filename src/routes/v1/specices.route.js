@@ -43,4 +43,7 @@ router
   .route('/getHistorySpecies/:speciesId')
   .get(auth(MODES.GET), validate(speciesValidation.getSpecies), speciesController.getHistorySpecies);
 
+router
+  .route('/searchSpecies/:speciesName')
+  .get(auth(MODES.GET), validate(speciesValidation.searchSpecies), speciesController.searchSpecies);
 module.exports = router;

@@ -77,6 +77,12 @@ const getChildOfFamilia = {
   }),
 };
 
+const searchGenus = {
+  params: Joi.object().keys({
+    genusName: Joi.string(),
+  }),
+};
+
 module.exports = {
   createGenus,
   getGenuss,
@@ -88,4 +94,5 @@ module.exports = {
   getGenusByName,
   suggestGenusName,
   getChildOfFamilia,
+  searchGenus,
 };

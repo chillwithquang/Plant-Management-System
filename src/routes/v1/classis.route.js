@@ -41,4 +41,8 @@ router
 router
   .route('/getHistoryClassis/:classisId')
   .get(auth(MODES.GET), validate(classisValidation.getClassis), classisController.getHistoryClassis);
+
+router
+  .route('/searchClassis/:classisName')
+  .get(auth(MODES.GET), validate(classisValidation.searchClassis), classisController.searchClassis);
 module.exports = router;

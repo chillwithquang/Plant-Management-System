@@ -115,6 +115,18 @@ const getHistorySpecies = catchAsync(async (req, res) => {
   res.send(historise);
 });
 
+const searchSpecies = catchAsync(async (req, res) => {
+  const speciess = await speciesService.searchSpecies(req.params.speciesName);
+  if (speciess.length === 0) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Species not found');
+  }
+  const result = {
+    total: speciess.length,
+    speciess,
+  };
+  res.send(result);
+});
+
 module.exports = {
   createSpecies,
   getSpeciess,
@@ -128,4 +140,5 @@ module.exports = {
   getParentSpecies,
   getChildOfGenus,
   getHistorySpecies,
+  searchSpecies,
 };

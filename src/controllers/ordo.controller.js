@@ -107,6 +107,18 @@ const getHistoryOrdo = catchAsync(async (req, res) => {
   res.send(historise);
 });
 
+const searchOrder = catchAsync(async (req, res) => {
+  const orders = await ordoService.searchOrder(req.params.orderName);
+  if (orders.length === 0) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'orders not found');
+  }
+  const result = {
+    total: orders.length,
+    orders,
+  };
+  res.send(result);
+});
+
 module.exports = {
   createOrdo,
   getOrdos,
@@ -119,4 +131,5 @@ module.exports = {
   suggestOrderName,
   getChildOfClassis,
   getHistoryOrdo,
+  searchOrder,
 };

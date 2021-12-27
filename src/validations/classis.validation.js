@@ -77,6 +77,12 @@ const getChildOfDivisio = {
   }),
 };
 
+const searchClassis = {
+  params: Joi.object().keys({
+    classisName: Joi.string(),
+  }),
+};
+
 module.exports = {
   createClassis,
   getClassiss,
@@ -88,4 +94,5 @@ module.exports = {
   getClassisByName,
   suggestClassisName,
   getChildOfDivisio,
+  searchClassis,
 };

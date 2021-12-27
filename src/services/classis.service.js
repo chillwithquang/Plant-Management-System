@@ -94,6 +94,10 @@ const getChildOfDivisio = async (divisioName) => {
   return Classis.find({ idNganh: idDivisio });
 };
 
+const searchClassis = async (classisName) => {
+  return Classis.find({ Ten_KH: { $regex: classisName } });
+};
+
 module.exports = {
   createClassis,
   queryClassiss,
@@ -105,4 +109,5 @@ module.exports = {
   getClassisByName,
   suggestClassisName,
   getChildOfDivisio,
+  searchClassis,
 };

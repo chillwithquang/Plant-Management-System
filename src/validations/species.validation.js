@@ -95,6 +95,12 @@ const getChildOfGenus = {
   }),
 };
 
+const searchSpecies = {
+  params: Joi.object().keys({
+    speciesName: Joi.string(),
+  }),
+};
+
 module.exports = {
   createSpecies,
   getSpeciess,
@@ -107,4 +113,5 @@ module.exports = {
   suggestSpeciesName,
   getParentSpecies,
   getChildOfGenus,
+  searchSpecies,
 };

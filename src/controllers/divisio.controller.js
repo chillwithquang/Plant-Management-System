@@ -90,6 +90,18 @@ const getHistoryDivisio = catchAsync(async (req, res) => {
   res.send(historise);
 });
 
+const searchDivisio = catchAsync(async (req, res) => {
+  const divisios = await divisioService.searchDivisio(req.params.divisioName);
+  if (divisios.length === 0) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Divisio not found');
+  }
+  const result = {
+    total: divisios.length,
+    divisios,
+  };
+  res.send(result);
+});
+
 module.exports = {
   createDivisio,
   getDivisios,
@@ -101,4 +113,5 @@ module.exports = {
   getDivisioByName,
   suggestDivisioName,
   getHistoryDivisio,
+  searchDivisio,
 };

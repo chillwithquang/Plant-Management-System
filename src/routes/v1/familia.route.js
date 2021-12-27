@@ -41,4 +41,7 @@ router
   .route('/getHistoryFamilia/:familiaId')
   .get(auth(MODES.GET), validate(familiaValidation.getFamilia), familiaController.getHistoryFamilia);
 
+router
+  .route('/searchFamilia/:familiaName')
+  .get(auth(MODES.GET), validate(familiaValidation.searchFamilia), familiaController.searchFamilia);
 module.exports = router;

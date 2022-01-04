@@ -4,22 +4,17 @@ const config = require('./config/config');
 const logger = require('./config/logger');
 
 let server;
-
-const MONGODB_URL =
+const url =
   config.env === 'production'
     ? 'mongodb+srv://admin:admin@plantsmanagementsystem.i3grx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-    : config.mongoose.url;
+    : config.mongodb.url;
 
-logger.info(`@@mongodb ${MONGODB_URL}`);
-
-mongoose.connect(MONGODB_URL, config.mongoose.options).then(() => {
+mongoose.connect(url, config.mongoose.options).then(() => {
   logger.info('Connected to MongoDB');
   server = app.listen(config.port, () => {
     logger.info(`Listening to port ${config.port}`);
   });
 });
-
-require('./seed');
 
 const exitHandler = () => {
   if (server) {

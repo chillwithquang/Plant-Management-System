@@ -17,6 +17,7 @@ const paginate = (schema) => {
    * @param {string} [options.populate] - Populate data fields. Hierarchy of fields should be separated by (.). Multiple populating criteria should be separated by commas (,)
    * @param {number} [options.limit] - Maximum number of results per page (default = 10)
    * @param {number} [options.page] - Current page (default = 1)
+   * @param {number} [options.deleted]
    * @returns {Promise<QueryResult>}
    */
   schema.statics.paginate = async function (filter, options) {
@@ -35,9 +36,15 @@ const paginate = (schema) => {
     const limit = options.limit && parseInt(options.limit, 10) > 0 ? parseInt(options.limit, 10) : 10;
     const page = options.page && parseInt(options.page, 10) > 0 ? parseInt(options.page, 10) : 1;
     const skip = (page - 1) * limit;
-
-    const countPromise = this.countDocuments(filter).exec();
-    let docsPromise = this.find(filter).sort(sort).skip(skip).limit(limit);
+    let countPromise;
+    let docsPromise;
+    if (parseInt(options.deleted, 10)) {
+      docsPromise = this.findDeleted(filter).sort(sort).skip(skip).limit(limit);
+      countPromise = this.countDocumentsDeleted(filter).exec();
+    } else {
+      docsPromise = this.find(filter).sort(sort).skip(skip).limit(limit);
+      countPromise = this.countDocuments(filter).exec();
+    }
 
     if (options.populate) {
       options.populate.split(',').forEach((populateOption) => {

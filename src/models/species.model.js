@@ -1,25 +1,17 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
+const historise = require('mongoose-historise');
 const { toJSON, paginate } = require('./plugins');
 
 const speciesSchema = mongoose.Schema(
   {
-    ID_Loai: {
-      type: Number,
-      require: true,
-      unique: true,
-    },
     Ten_KH: {
       type: String,
-    },
-    Ten_TV_Khac: {
-      type: String,
-    },
-    Ten_Latin: {
-      type: String,
-    },
-    Ten_Latin_Khac: {
-      type: String,
       required: true,
+      unique: true,
+    },
+    Ten_TV: {
+      type: String,
     },
     Dac_Diem_Nhan_Dang: {
       type: String,
@@ -39,10 +31,10 @@ const speciesSchema = mongoose.Schema(
     Bien_Phap_BV: {
       type: String,
     },
-    Danh_Song: {
+    Dang_Song: {
       type: String,
     },
-    Chi: {
+    idChi: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'Genus',
       required: true,
@@ -56,9 +48,20 @@ const speciesSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 speciesSchema.plugin(toJSON);
 speciesSchema.plugin(paginate);
-
+speciesSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Species', limit: 3 });
+speciesSchema.plugin(mongooseDelete, {
+  deletedAt: true,
+  deletedBy: true,
+  deletedByType: String,
+  overrideMethods: ['countDocuments', 'find'],
+});
+// eslint-disable-next-line camelcase
+speciesSchema.statics.isSpeciesTaken = async function (Ten_KH, excludeSpeciesId) {
+  const speciesExist = await this.findOne({ Ten_KH, _id: { $ne: excludeSpeciesId } });
+  return !!speciesExist;
+};
 /**
- * @typedef User
+ * @typedef Species
  */
 const Species = mongoose.model('Species', speciesSchema);
 

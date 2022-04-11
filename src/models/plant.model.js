@@ -3,6 +3,11 @@ const { toJSON, paginate } = require('./plugins');
 
 const plantSchema = mongoose.Schema(
   {
+    Ten_KH: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     Noi_Lay: {
       type: String,
     },
@@ -49,8 +54,13 @@ const plantSchema = mongoose.Schema(
 plantSchema.plugin(toJSON);
 plantSchema.plugin(paginate);
 
+// eslint-disable-next-line camelcase
+plantSchema.statics.isPlantTaken = async function (Ten_KH, excludePlantId) {
+  const plantExist = await this.findOne({ Ten_KH, _id: { $ne: excludePlantId } });
+  return !!plantExist;
+};
 /**
- * @typedef User
+ * @typedef Plant
  */
 const Plant = mongoose.model('Plant', plantSchema);
 

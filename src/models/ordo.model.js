@@ -3,7 +3,7 @@ const mongooseDelete = require('mongoose-delete');
 const historise = require('mongoose-historise');
 const { toJSON, paginate } = require('./plugins');
 
-const classisSchema = mongoose.Schema(
+const ordoSchema = mongoose.Schema(
   {
     Ten_KH: {
       type: String,
@@ -16,9 +16,9 @@ const classisSchema = mongoose.Schema(
     Mo_Ta: {
       type: String,
     },
-    idNganh: {
+    idLop: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Divisio',
+      ref: 'Classis',
       required: true,
     },
   },
@@ -28,10 +28,10 @@ const classisSchema = mongoose.Schema(
 );
 
 // add plugin that converts mongoose to json
-classisSchema.plugin(toJSON);
-classisSchema.plugin(paginate);
-classisSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Classis', limit: 3 });
-classisSchema.plugin(mongooseDelete, {
+ordoSchema.plugin(toJSON);
+ordoSchema.plugin(paginate);
+ordoSchema.plugin(historise, { mongooseInstance: mongoose, mongooseModelName: 'Ordo', limit: 3 });
+ordoSchema.plugin(mongooseDelete, {
   deletedAt: true,
   deletedBy: true,
   deletedByType: String,
@@ -39,13 +39,13 @@ classisSchema.plugin(mongooseDelete, {
 });
 
 // eslint-disable-next-line camelcase
-classisSchema.statics.isClassisTaken = async function (Ten_KH, excludeClassisId) {
-  const classiExist = await this.findOne({ Ten_KH, _id: { $ne: excludeClassisId } });
-  return !!classiExist;
+ordoSchema.statics.isOrdoTaken = async function (Ten_KH, excludeOrdoId) {
+  const ordoExist = await this.findOne({ Ten_KH, _id: { $ne: excludeOrdoId } });
+  return !!ordoExist;
 };
 /**
- * @typedef Classis
+ * @typedef Ordo
  */
-const Classis = mongoose.model('Classis', classisSchema);
+const Ordo = mongoose.model('Ordo', ordoSchema);
 
-module.exports = Classis;
+module.exports = Ordo;
